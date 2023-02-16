@@ -17,7 +17,7 @@
   \item{initial.beta}{initial values for the regression coefficients for the covariates in Z. Default is \code{NULL}}
   \item{bd.iter}{number of iterations for the BDgraph function. Default is 100}
   \item{iter}{number of iterations for the MCMC sampler. Default is 1000}
-  \item{burnin}{number of burn-in iterations to discard. If not specified, the function discards the first 75% of the iterations. Default is \code{NULL}}
+  \item{burnin}{number of burn-in iterations to discard. If not specified, the function discards the first 75\% of the iterations. Default is \code{NULL}}
   \item{method}{method used for network estimation. Options are "ggm" (Gaussian graphical model) or "gcgm" (Gaussian copula graphical model). Default is "ggm"}
   \item{gcgm.dwpar}{a list of B elements, each containing the parameters for the truncated data in the GC-GM. If method is "gcgm", this parameter is required. Default is \code{NULL}}
 }
@@ -29,11 +29,11 @@ The function first initializes the latent positions and intercepts, and the init
 \value{
   A list containing the posterior samples of the model parameters. The list includes:
   \item{sample.alpha}{a B x (iter - burnin) matrix of the \code{sample.alpha} posterior samples of the network-specific intercepts}
-\item{sample.beta}{a matrix with ncol(Z) rows and (iter - burnin) columns of the posterior samples of the regression coefficients for the covariates in Z. This is only returned if Z is not \code{NULL}.}
-\item{sample.cloc}{a B x D x (iter - burnin) array of the posterior samples of the latent positions of the nodes.}
-\item{sample.graphs}{an n.edge x B x (iter - burnin) array of the posterior samples of the network structures.}
-\item{pi.edgpost}{an n.edge x B matrix of the posterior edge probabilities in each network.}
-\item{pi.probit}{an n.edge x B x (iter - burnin) array of the estimated probit probabilities of the edge connections in each network.}
+  \item{sample.beta}{a matrix with ncol(Z) rows and (iter - burnin) columns of the posterior samples of the regression coefficients for the covariates in Z. This is only returned if Z is not \code{NULL}.}
+  \item{sample.cloc}{a B x D x (iter - burnin) array of the posterior samples of the latent positions of the nodes.}
+  \item{sample.graphs}{an n.edge x B x (iter - burnin) array of the posterior samples of the network structures.}
+  \item{pi.edgpost}{an n.edge x B matrix of the posterior edge probabilities in each network.}
+  \item{pi.probit}{an n.edge x B x (iter - burnin) array of the estimated probit probabilities of the edge connections in each network.}
 }
 \examples{
 set.seed(123)
