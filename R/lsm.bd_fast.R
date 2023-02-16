@@ -59,7 +59,7 @@ lsm.bd_fast<-function(data,Z=NULL,initial.graphs=NULL, D=2, initial.cloc=NULL, i
   pb <- txtProgressBar(min = 0, max = (iter-1), style = 3)
   for (k in 1: (iter-1))
   {
-    setTxtProgressBar(pb = pb, value = k) 
+    setTxtProgressBar(pb = pb, value = k,title = "Performing MCMC iterations") 
 
     # update latent node and condition locations
     G<-sample.graphs[,,k]
@@ -109,7 +109,7 @@ lsm.bd_fast<-function(data,Z=NULL,initial.graphs=NULL, D=2, initial.cloc=NULL, i
         res.bd<-BDgraph::bdgraph(data[[j]], iter = bd.iter*100, g.start=g.start,  g.prior=g.prior, save=TRUE, burnin=0, verbose = FALSE)
         pp<-plinks(res.bd)
         pi.edgpost[,j]<-t(pp)[lower.tri(pp)]
-        khat.edgpost[,j]<-res.bd$K_hat[lower.tri(res.bd$K_hat)]
+        khat.edgpost[[j]]<-res.bd$K_hat[lower.tri(res.bd$K_hat)]
         
       }
       g<-res.bd$last_graph
