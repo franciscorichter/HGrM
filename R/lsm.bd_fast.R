@@ -1,4 +1,4 @@
-lsm.bd_fast<-function(data,Z=NULL,initial.graphs=NULL, D=2, initial.cloc=NULL, initial.alpha=NULL, initial.beta=NULL, bd.iter=100,iter=1000,burnin=NULL, method = c("ggm","gcgm"), gcgm.dwpar=NULL)
+lsm.bd_fast<-function(data,Z=NULL,initial.graphs=NULL, D=2, initial.cloc=NULL, initial.alpha=NULL, initial.beta=NULL, bd.iter=100,iter=1000,burnin=NULL, gcgm.dwpar=NULL)
 {
   p<-ncol(data[[1]]) #number of nodes
   n.edge<-p*(p-1)/2 #number of edges
@@ -55,38 +55,18 @@ lsm.bd_fast<-function(data,Z=NULL,initial.graphs=NULL, D=2, initial.cloc=NULL, i
     K[[i]]<-diag(p)
   }
   
-  #  if (method=="gcgm"){
-  #    discrete.data<-data
-  #    #calculate truncated points
-  #    tpoints<-vector("list",B)
-  #    for(i in 1:B)
-  #    {
-  #      tpoints[[i]]<-vector("list",2)
-  #      beta.dw<-gcgm.dwpar[[i]]$beta
-  #      q<-gcgm.dwpar[[i]]$q
-  #      pii<-matrix(rep(gcgm.dwpar[[i]]$pii,each=nrow(q)),nrow(q),ncol(q))
-  #      pdw_lb = BDgraph::pdweibull( data[[i]] - 1, q = q, beta = beta.dw)
-  #      pdw_ub = BDgraph::pdweibull( data [[i]], q = q, beta = beta.dw)
-  #      tpoints[[i]][[1]]<-stats::qnorm( ( 1 - pii)*( data[[i]] != 0 ) + pii*pdw_lb)
-  #      tpoints[[i]][[2]] <- stats::qnorm( (1 - pii) + pii*pdw_ub)
-  #    }
-  #  }
   
-  
+  pb <- txtProgressBar(min = 0, max = (iter-1), style = 3)
   for (k in 1: (iter-1))
   {
-    # update data if the Gaussian Copula GM (gcgm) is selected
-    if (method=="gcgm"){
-      data<-sample.data(data,discrete.data, K, tpoints)
-    }
+    setTxtProgressBar(pb = pb, value = k) 
+
     # update latent node and condition locations
     G<-sample.graphs[,,k]
     if(is.null(Z))
       G.loc<-Gmcmc_fast(G,alpha=sample.alpha[,k],cloc=sample.cloc[,,k],n.iter=1,n.burnin = 0)
     else
       G.loc<-Gmcmc_fast(G,Z=Z,alpha=sample.alpha[,k],beta=sample.beta[,k],cloc=sample.cloc[,,k],n.iter=1,n.burnin = 0)
-    
-    
     
     cloc<-G.loc$cloc[,,1]
     alpha<-G.loc$alpha
@@ -123,10 +103,10 @@ lsm.bd_fast<-function(data,Z=NULL,initial.graphs=NULL, D=2, initial.cloc=NULL, i
       g.start<-g.start+t(g.start)
       if(k < (iter-1))
         # update K
-        res.bd<-BDgraph::bdgraph(data[[j]], iter = bd.iter, g.start=g.start,  g.prior=g.prior, save=FALSE, burnin=0)
+        res.bd<-BDgraph::bdgraph(data[[j]], iter = bd.iter, g.start=g.start,  g.prior=g.prior, save=FALSE, burnin=0,verbose = FALSE)
       else
       {
-        res.bd<-BDgraph::bdgraph(data[[j]], iter = bd.iter*100, g.start=g.start,  g.prior=g.prior, save=TRUE, burnin=0)
+        res.bd<-BDgraph::bdgraph(data[[j]], iter = bd.iter*100, g.start=g.start,  g.prior=g.prior, save=TRUE, burnin=0, verbose = FALSE)
         pp<-plinks(res.bd)
         pi.edgpost[,j]<-t(pp)[lower.tri(pp)]
         khat.edgpost[,j]<-res.bd$K_hat[lower.tri(res.bd$K_hat)]
