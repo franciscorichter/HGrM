@@ -60,5 +60,5 @@ sim_HGrM <- function(n=1000, D = 2, p = 81, B = 10, seed = 123, mcmc_iter=50, al
     data[[j]] <- BDgraph::bdgraph.sim( p = p, n = n, graph = A)$data
   }
   
-  list(data = data, cloc_true = cloc.true, alpha_true = alpha.true, beta_true = beta.true,G.true=G.true,diagnostic=sp)
+  list(data = data, X=X, loc = cloc.true, alpha = alpha.true, theta = beta.true,G=G.true,diagnostic=sp)
 }
