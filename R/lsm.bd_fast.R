@@ -63,7 +63,7 @@ lsm.bd_fast<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, i
   }
   
   
-  if (method=="gcgm"){
+  if (method[1]=="gcgm"){
     discrete.data<-data
     #calculate truncated points
     tpoints<-vector("list",B)
@@ -86,7 +86,7 @@ lsm.bd_fast<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, i
     setTxtProgressBar(pb = pb, value = k,title = "Performing MCMC iterations") 
 
     # update data if the Gaussian Copula GM (gcgm) is selected
-    if (method=="gcgm"){
+    if (method[1]=="gcgm"){
       data<-sample.data(data,discrete.data, K, tpoints)
     }
     
