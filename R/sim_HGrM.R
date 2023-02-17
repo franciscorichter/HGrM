@@ -1,4 +1,4 @@
-sim_HGrM <- function(n=1000, D = 2, p = 81, B = 10, seed = 123, mcmc_iter=1000, alpha=NULL,beta=NULL,loc=NULL, X=NULL) {
+sim_HGrM <- function(n=1000, D = 2, p = 81, B = 10, seed = 123, mcmc_iter=1000, alpha=NULL,theta=NULL,loc=NULL, X=NULL) {
   
   set.seed(seed)
   
@@ -23,10 +23,10 @@ sim_HGrM <- function(n=1000, D = 2, p = 81, B = 10, seed = 123, mcmc_iter=1000, 
     alpha.true <- rnorm(B, -2)
   else
     alpha.true<-alpha
-  if(is.null(beta))
-     beta.true<-beta
+  if(is.null(theta))
+     beta.true<-2.5
    else
-    beta.true <- 2.5
+    beta.true <- theta
   
   # Simulating true graph
   G.true <- matrix(0, ncol = B, nrow = n.edge)
