@@ -186,7 +186,7 @@ lsm.bd_fast<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, i
   if(is.null(Z))
     return(list(sample.alpha=sample.alpha,sample.loc=sample.cloc,sample.K=sample.K,sample.graphs=sample.graphs,sample.pi=sample.pi,pi.probit=pi.probit))
   else
-    return(list(sample.alpha=sample.alpha,sample.beta=sample.beta,sample.K=sample.K,sample.loc=sample.cloc,sample.graphs=sample.graphs,sample.pi=sample.pi,pi.probit=pi.probit))
+    return(list(sample.alpha=sample.alpha,sample.theta=sample.beta,sample.K=sample.K,sample.loc=sample.cloc,sample.graphs=sample.graphs,sample.pi=sample.pi,pi.probit=pi.probit))
 }
 
 
