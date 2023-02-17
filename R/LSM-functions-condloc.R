@@ -25,7 +25,7 @@ rot<-function(loc){
   alpha<-atan(x.mn[2]/x.mn[1])+(x.mn[1]<0)*pi
   phi<-pi/2-alpha
   angles<-apply(loc,1,function(x){atan(x[2]/x[1])+(x[1]<0)*pi})
-  r<-apply(loc,1,function(x,y){sqrt(x[1]^2+x[2]^2)/sqrt(y[1]^2+y[2]^2)},y=x.mn)
+  r<-apply(loc,1,function(x){sqrt(x[1]^2+x[2]^2)})
   new.loc<-r*cbind(sin(phi+angles),cos(phi+angles))
   return(new.loc)
 }
