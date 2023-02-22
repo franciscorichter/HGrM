@@ -1,6 +1,6 @@
-Package: HGrM
+Package: rgm
 Type: Package
-Title: Hierarchical Graphical Models
+Title: Random Graphical Models
 Version: 0.0.0.9000
 Authors@R: c(person("Francisco","Richter", email = "richtf@usi.ch", role = c("aut", "cre")),
                 person("Veronica","Vinciotti", email = "veronica.vinciotti@unitn.it", role=c("ctb")),
