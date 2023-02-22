@@ -1,7 +1,7 @@
-sim_HGrM <- function(n=1000, D = 2, p = 81, B = 10, seed = 123, mcmc_iter=50, alpha=NULL,theta=NULL,loc=NULL, X=NULL) {
-  
+sim.rgm <- function(n=1000, D = 2, p = 81, B = 10, seed = 123, mcmc_iter=50, alpha=NULL,theta=NULL,loc=NULL, X=NULL) {
+
   set.seed(seed)
-  
+
   # Simulating latent space model
   if(is.null(loc)){
     cond.loc1 <- rnorm(B, 0, 0.3)
@@ -9,7 +9,7 @@ sim_HGrM <- function(n=1000, D = 2, p = 81, B = 10, seed = 123, mcmc_iter=50, al
     cloc.true <- cbind(cond.loc1, cond.loc2)
   }  else
     cloc.true<-loc
-  
+
   # Simulating one covariate
   n.edge <- p*(p-1)/2
   if(is.null(X)){
@@ -17,7 +17,7 @@ sim_HGrM <- function(n=1000, D = 2, p = 81, B = 10, seed = 123, mcmc_iter=50, al
     X <- as.matrix(X)
   } else
     X<-as.matrix(X)
-  
+
   # True parameters
   if(is.null(alpha))
     alpha.true <- rnorm(B, -2)
@@ -27,7 +27,7 @@ sim_HGrM <- function(n=1000, D = 2, p = 81, B = 10, seed = 123, mcmc_iter=50, al
      beta.true<-2.5
    else
     beta.true <- theta
-  
+
   # Simulating true graph
   G.true <- matrix(0, ncol = B, nrow = n.edge)
   dist.cond <- matrix(ncol=B, nrow=n.edge)
@@ -50,7 +50,7 @@ sim_HGrM <- function(n=1000, D = 2, p = 81, B = 10, seed = 123, mcmc_iter=50, al
   }
   sp<-c(sp,sum(G.true))
 }
-    
+
   # Simulating data (Gaussian)
   data <- vector(mode = "list", length = B)
   for (j in 1:B) {
@@ -59,6 +59,6 @@ sim_HGrM <- function(n=1000, D = 2, p = 81, B = 10, seed = 123, mcmc_iter=50, al
     A <- A + t(A)
     data[[j]] <- BDgraph::bdgraph.sim( p = p, n = n, graph = A)$data
   }
-  
+
   list(data = data, X=X, loc = cloc.true, alpha = alpha.true, theta = beta.true,G=G.true,diagnostic=sp)
 }
