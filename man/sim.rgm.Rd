@@ -1,10 +1,10 @@
-\name{sim_HGrM}
-\alias{sim_HGrM}
+\name{sim.rgm}
+\alias{sim.rgm}
 \title{
 Simulate Data from a Latent Space Model with Binary Edges and a Continuous Covariate
 }
 \usage{
-sim_HGrM(D = 2, p = 81, B = 10, seed = 123)
+sim.rgm(D = 2, p = 81, B = 10, seed = 123)
 }
 \arguments{
 \item{D}{The dimension of the latent space. Default is 2.}
@@ -23,5 +23,5 @@ A list with the following elements:
 This function simulates data from a latent space model with binary edges and a continuous covariate. The latent space model includes two condition-specific intercepts and a condition-specific slope.
 }
 \examples{
-sim_data <- sim_HGrM()
+sim_data <- sim.rgm()
 }

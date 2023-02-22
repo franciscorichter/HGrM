@@ -1,11 +1,11 @@
-\name{lsm.bd}
-\alias{lsm.bd}
+\name{rgm}
+\alias{rgm}
 \title{Latent Space Model for Multiple Binary Networks}
 \description{
   The function implements the Latent Space Model (LSM) for multiple binary networks. The LSM assumes that there exists an underlying latent space where nodes are located. The model estimates the latent positions, the intercepts for each network, and the network structures for each network.
 }
 \usage{
-  lsm.bd(data, Z=NULL, initial.graphs=NULL, D=2, initial.cloc=NULL, initial.alpha=NULL, initial.beta=NULL, bd.iter=100,iter=1000,burnin=NULL, method = c("ggm","gcgm"), gcgm.dwpar=NULL)
+  rgm(data, Z=NULL, initial.graphs=NULL, D=2, initial.cloc=NULL, initial.alpha=NULL, initial.beta=NULL, bd.iter=100,iter=1000,burnin=NULL, method = c("ggm","gcgm"), gcgm.dwpar=NULL)
 }
 \arguments{
   \item{data}{a list of B binary network adjacency matrices, where B is the number of networks}
@@ -22,9 +22,9 @@
   \item{gcgm.dwpar}{a list of B elements, each containing the parameters for the truncated data in the GC-GM. If method is "gcgm", this parameter is required. Default is \code{NULL}}
 }
 \details{
-The LSM for multiple binary networks is a Bayesian model that infers the location of each node in a D-dimensional latent space and the probability of a link between two nodes as a function of their Euclidean distance in the latent space. The model also allows for network-specific intercepts and regression coefficients for covariates in Z. 
+The LSM for multiple binary networks is a Bayesian model that infers the location of each node in a D-dimensional latent space and the probability of a link between two nodes as a function of their Euclidean distance in the latent space. The model also allows for network-specific intercepts and regression coefficients for covariates in Z.
 
-The function first initializes the latent positions and intercepts, and the initial graph if not provided. It then loops through the iterations and updates the latent positions and intercepts using the Gmcmc function. Next, it updates the probability of edge connections for each condition and each edge. Finally, it updates the network structure for each condition using the BDgraph package, if method is "ggm". If method is "gcgm", the function updates the data using the sample.data function and tpoints from the truncated data. The function returns the posterior samples of the parameters after discarding the burn-in period. 
+The function first initializes the latent positions and intercepts, and the initial graph if not provided. It then loops through the iterations and updates the latent positions and intercepts using the Gmcmc function. Next, it updates the probability of edge connections for each condition and each edge. Finally, it updates the network structure for each condition using the BDgraph package, if method is "ggm". If method is "gcgm", the function updates the data using the sample.data function and tpoints from the truncated data. The function returns the posterior samples of the parameters after discarding the burn-in period.
 }
 \value{
   A list containing the posterior samples of the model parameters. The list includes:
