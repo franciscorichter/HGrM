@@ -5,7 +5,7 @@ Version: 0.0.0.9000
 Authors@R: c(person("Francisco","Richter", email = "richtf@usi.ch", role = c("aut", "cre")),
                 person("Veronica","Vinciotti", email = "veronica.vinciotti@unitn.it", role=c("ctb")),
                 person("Ernst","Wit", email = "ernst.jan.camiel.wit@usi.ch", role = c("ctb")))
-Description: Statistical algorithms for HGrM inference
+Description: Statistical algorithms for random graphical modeling inference
 License: file LICENSE
 Encoding: UTF-8
 Depends: R (>= 3.5.0),
