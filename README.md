@@ -1,6 +1,6 @@
 # rgm
 
-Random graphical model
+random graphical model
 
 ### Installation. 
 
