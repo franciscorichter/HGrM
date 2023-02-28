@@ -1,6 +1,6 @@
 # rgm
 
-Random graphical modelling of microbiome interactions in related environments
+Random graphical model
 
 ### Installation. 
 
