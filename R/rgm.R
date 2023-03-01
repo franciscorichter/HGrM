@@ -5,12 +5,13 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
   B<-length(data) #number of conditions
 
   sample.graphs<-array(dim=c(n.edge,B,iter))
-  sample.K<-array(dim=c(n.edge,B,iter))
+  sample.K<-array(dim=c(n.edge+p,B,iter))
   sample.pi<-array(dim=c(n.edge,B,iter))
 
   # lower triangle of pxp matrix
   m<-matrix(1:p,ncol=p,nrow = p)
   lt<-lower.tri(m)
+  ltd<-lower.tri(m,diag=TRUE)
 
   if(is.null(initial.graphs))
   {
@@ -59,7 +60,7 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
   K=vector(mode="list", length=B)
   for (i in 1:B){
     K[[i]]<-diag(p)
-    sample.K[,i,1]<-K[[i]][lt]
+    sample.K[,i,1]<-K[[i]][ltd]
   }
 
 
@@ -137,7 +138,7 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
       g<-res.bd$last_graph
       K[[j]]<-res.bd$last_K
       sample.graphs[,j,k+1]<-g[lt]
-      sample.K[,j,k+1] <- K[[j]][lt]
+      sample.K[,j,k+1] <- K[[j]][ltd]
       sample.pi[,j,k+1] <- t(res.bd$p_links)[lt]
     }
 
