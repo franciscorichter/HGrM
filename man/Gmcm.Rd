@@ -2,15 +2,15 @@
 \alias{Gmcmc}
 \title{Random Graph Model}
 \description{
-  The function implements Bayesian inference of a random graph model for a given input matrix `G` containing graphs across different environments. 
+  The function implements Bayesian inference of a random graph model for a given input matrix `G` containing graphs across B different environments. 
   The function returns a list of the posterior distributions of environment-specific intercepts `alpha`, latent environment locations `cloc`, and regression coefficients `beta` (if the input matrix `Z` of edge covariates is provided). 
 }
 \usage{
 Gmcmc(G, Z = NULL, n.iter = 1000, alpha = NULL, beta = NULL, cloc = NULL, n.burnin = 500)
 }
 \arguments{
-  \item{G}{A binary matrix representing the graph structures, with dimension number of edges per number of conditions.}
-  \item{Z}{An optional matrix of covariates with dimension number of edges per number of covariates.}
+  \item{G}{A binary matrix representing the graph structures, with dimension n.edges x B.}
+  \item{Z}{An optional matrix of covariates with dimension n.edges x ncol(Z).}
   \item{n.iter}{The number of MCMC iterations.}
   \item{alpha}{An optional vector of initial values for the condition-specific intercepts.}
   \item{beta}{An optional vector of initial values for the regression coefficients associated to the covariates in `Z`.}
