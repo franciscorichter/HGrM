@@ -39,10 +39,10 @@ The function first initializes the latent positions, intercepts, regression coef
 }
 \examples{
 #simulate data
-a<-sim.rgm(mcmc_iter = 50)
+a<-sim.rgm(mcmc_iter = 10)
 
 #run inference
-results<-rgm(a$data,X=a$X,iter=500)
+results<-rgm(a$data,X=a$X,iter=100)
 
 #extract the posterior samples
 sample.alpha <- results$sample.alpha
