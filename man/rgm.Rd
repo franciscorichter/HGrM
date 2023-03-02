@@ -38,17 +38,13 @@ The function first initializes the latent positions, intercepts, regression coef
   \item{pi.probit}{an n.edge x B x (iter - burnin) array of the estimated probit probabilities of the edge connections in each network.}
 }
 \examples{
-set.seed(123)
-n <- 50
-p <- 10
-B <- 3
-data <- lapply(1:B, function(i) matrix(rbinom(np, 1, 0.2), n, p))
-Z <- matrix(rnorm(nB), nrow=n, ncol=B)
-run the model
+#simulate data
+a<-sim.rgm(mcmc_iter = 50)
 
-results <- rgm(data = data, X = Z, iter = 500, bd.iter = 20)
-extract the posterior samples
+#run inference
+results<-rgm(a$data,X=a$X,iter=500)
 
+#extract the posterior samples
 sample.alpha <- results$sample.alpha
 sample.beta <- results$sample.theta
 sample.loc <- results$sample.loc
