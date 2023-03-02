@@ -20,12 +20,12 @@ sim.rgm(n = 1000, D = 2, p = 81, B = 10, seed = 123, mcmc_iter = 50, alpha = NUL
 }
 \value{
 A list with the following elements:
-\item{data}{A list of B elements, where each element contains an n-by-p matrix of simulated Gaussian data.}
-\item{X}{A dataset of edge covariates, with dimension number of edges per number of covariates.}
-\item{loc}{A matrix of the true condition-specific coordinates. Dimension is nrow = B, ncol = D.}
+\item{data}{A list of B elements, where each element contains an n x p matrix of simulated Gaussian data.}
+\item{X}{A dataset of edge covariates, of dimension n.edges x ncol(X).}
+\item{loc}{A matrix of the true condition-specific coordinates. Dimension is B x D.}
 \item{alpha}{A vector of the true condition-specific intercepts. Length is B.}
 \item{theta}{A vector of the true regression coefficients associated to the covariates in X.}
-\item{G}{A matrix of the true graphs, of dimension number of edges per number of conditions B.}
+\item{G}{A matrix of the true graphs, of dimension n.edges x B.}
 \item{diagnostic}{The sparsity of the graphs generated across the \code{mcmc_iter} iterations, as a diagnostic tool for convergence.}
 }
 \description{
