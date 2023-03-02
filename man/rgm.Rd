@@ -23,7 +23,7 @@
   \item{gcgm.dwpar}{a list of B elements, each containing the parameters of the discrete Weibull marginal fitting within each environment. This input is required only for method "gcgm" and is passed on to the function "sample.data". Default is \code{NULL}.}
 }
 \details{
-rgm is a Bayesian random graphical model that infers the location of each environment in a 2-dimensional latent space. The probability of a link between two nodes in one environment is related to the distance of this environment to the other environments in the latent space as well as to the presence of an edge in the related environments. The model also allows for network-specific intercepts and regression coefficients for covariates measures at the edge level.
+rgm is a Bayesian random graphical model that infers the location of each environment in a 2-dimensional latent space. The probability of a link between two nodes in one environment is related to the distance of this environment to the other environments in the latent space as well as to the presence of an edge in the related environments. The model also allows for network-specific intercepts and regression coefficients for covariates measured at the edge level.
 
 The function first initializes the latent positions, intercepts, regression coefficients and the initial graphs, if not provided. It then loops through the iterations and updates the latent positions, regression coefficients and intercepts using the Gmcmc function. Next, it calculates the probability of edge connections for each condition. Finally, it updates the network structure for each condition using the BDgraph package. The function returns the posterior samples of the parameters after discarding the burn-in period.
 }
