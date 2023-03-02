@@ -20,7 +20,7 @@
   \item{bd.iter}{number of iterations for the BDgraph function. Default is 20.}
   \item{bd.jump}{number of links to be updated simulateneously for the BDgraph function. Default is 10.}
   \item{method}{method used for network estimation. Options are "ggm" (Gaussian graphical model) or "gcgm" (Gaussian copula graphical model). Default is "ggm".}
-  \item{gcgm.dwpar}{a list of B elements, each containing the parameters of the discrete Weibull marginal fitting with each environment. This input is required only for method "gcgm". Default is \code{NULL}.}
+  \item{gcgm.dwpar}{a list of B elements, each containing the parameters of the discrete Weibull marginal fitting within each environment. This input is required only for method "gcgm" and is passed on to the function "sample.data". Default is \code{NULL}.}
 }
 \details{
 rgm is a Bayesian random graphical model that infers the location of each environment in a 2-dimensional latent space. The probability of a link between two nodes in one environment is related to the distance of this environment to the other environments in the latent space as well as to the presence of an edge in the related environments. The model also allows for network-specific intercepts and regression coefficients for covariates measures at the edge level.
