@@ -12,11 +12,11 @@
   \item{X}{a data matrix for the edge covariates with dimension number of edges per number of covariates. Default is \code{NULL}, corresponding to the absence of edge covariates.}
   \item{iter}{number of iterations for the MCMC sampler. Default is 1000.}
   \item{burnin}{number of burn-in iterations to discard. Default is 0.}
-  \item{initial.graphs}{an optional matrix of binary adjacency matrices for the initial graphs, with dimension number of edges per number of environments. Default is \code{NULL}.}
+  \item{initial.graphs}{an optional matrix of binary adjacency matrices for the initial graphs, with dimension n.edges x B. Default is \code{NULL} and in this case the initial graphs are constructed using graphical lasso (function huge).}
   \item{D}{number of dimensions in the latent space. Default is 2.}
-  \item{initial.loc}{initial values for the B x D matrix of latent node positions. Default is \code{NULL}.}
-  \item{initial.alpha}{initial values for the B-dimensional intercepts. Default is \code{NULL}.}
-  \item{initial.theta}{initial values for the regression coefficients associated to the covariates in X. Default is \code{NULL}.}
+  \item{initial.loc}{initial values for the B x D matrix of latent node positions. Default is \code{NULL} and in this case the initial values are drawn from a N(0,1) distribution.}
+  \item{initial.alpha}{initial values for the B-dimensional intercepts. Default is \code{NULL} and in this case they are set to 0.}
+  \item{initial.theta}{initial values for the regression coefficients associated to the covariates in X. Default is \code{NULL} and in this case they are set via a probit regression of the initial graphs on the edge covariates.}
   \item{bd.iter}{number of iterations for the BDgraph function. Default is 20.}
   \item{bd.jump}{number of links to be updated simulateneously for the BDgraph function. Default is 10.}
   \item{method}{method used for network estimation. Options are "ggm" (Gaussian graphical model) or "gcgm" (Gaussian copula graphical model). Default is "ggm".}
