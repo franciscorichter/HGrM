@@ -1,8 +1,8 @@
 \name{blr}
 \alias{blr}
-\title{Bayesian Logistic Regression}
+\title{Bayesian Probit Regression}
 \description{
-This function implements a Bayesian Logistic Regression model in R. The function takes as inputs:
+This function implements Bayesian inference for a probit regression model. The function takes as inputs:
 - y: a binary response variable
 - X: a design matrix of predictors
 - offset: an optional offset to the linear predictor
@@ -11,8 +11,6 @@ This function implements a Bayesian Logistic Regression model in R. The function
 - N_sim: the number of posterior samples to draw from the model
 
 The function uses a Gibbs sampling algorithm to draw posterior samples from the model. It computes the posterior distribution of the regression coefficients (theta) given the data (y and X) and the prior distribution of the coefficients (theta_0).
-
-The full conditional distribution for the latent variable z and the regression coefficients theta are truncated normal distributions, meaning that they are normal distributions with a lower or upper bound.
 
 The function returns a matrix of N_sim posterior samples for the regression coefficients.
 }
