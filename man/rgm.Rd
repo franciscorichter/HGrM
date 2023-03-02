@@ -8,19 +8,19 @@
   rgm(data, X=NULL, iter = 1000, burnin = 0, initial.graphs = NULL, D = 2, initial.loc = NULL, initial.alpha = NULL, initial.theta = NULL, bd.iter = 20, bd.jump = 10, method = c("ggm", "gcgm"), gcgm.dwpar = NULL)
 }
 \arguments{
-  \item{data}{a list of B multivariate datasets measuring p variables across B number of environments}
-  \item{X}{a data matrix for the edge covariates with dimension number of edges per number of covariates. Default is \code{NULL}}
-  \item{iter}{number of iterations for the MCMC sampler. Default is 1000}
-  \item{burnin}{number of burn-in iterations to discard. Default is 0}
-  \item{initial.graphs}{an optional matrix of binary adjacency matrices for the initial graphs, with dimension number of edges per number of environments. Default is \code{NULL}}
-  \item{D}{number of dimensions in the latent space. Default is 2}
-  \item{initial.loc}{initial values for the B x D matrix of latent node positions. Default is \code{NULL}}
-  \item{initial.alpha}{initial values for the B-dimensional intercepts. Default is \code{NULL}}
-  \item{initial.theta}{initial values for the regression coefficients associated to the covariates in X. Default is \code{NULL}}
-  \item{bd.iter}{number of iterations for the BDgraph function. Default is 20}
-  \item{bd.jump}{number of links to be updated simulateneously for the BDgraph function. Default is 10}
-  \item{method}{method used for network estimation. Options are "ggm" (Gaussian graphical model) or "gcgm" (Gaussian copula graphical model). Default is "ggm"}
-  \item{gcgm.dwpar}{a list of B elements, each containing the parameters of the discrete Weibull marginal fitting with each environment. This input is required only for method "gcgm". Default is \code{NULL}}
+  \item{data}{a list of B multivariate datasets measuring p variables across B number of environments.}
+  \item{X}{a data matrix for the edge covariates with dimension number of edges per number of covariates. Default is \code{NULL}, corresponding to the absence of edge covariates.}
+  \item{iter}{number of iterations for the MCMC sampler. Default is 1000.}
+  \item{burnin}{number of burn-in iterations to discard. Default is 0.}
+  \item{initial.graphs}{an optional matrix of binary adjacency matrices for the initial graphs, with dimension number of edges per number of environments. Default is \code{NULL}.}
+  \item{D}{number of dimensions in the latent space. Default is 2.}
+  \item{initial.loc}{initial values for the B x D matrix of latent node positions. Default is \code{NULL}.}
+  \item{initial.alpha}{initial values for the B-dimensional intercepts. Default is \code{NULL}.}
+  \item{initial.theta}{initial values for the regression coefficients associated to the covariates in X. Default is \code{NULL}.}
+  \item{bd.iter}{number of iterations for the BDgraph function. Default is 20.}
+  \item{bd.jump}{number of links to be updated simulateneously for the BDgraph function. Default is 10.}
+  \item{method}{method used for network estimation. Options are "ggm" (Gaussian graphical model) or "gcgm" (Gaussian copula graphical model). Default is "ggm".}
+  \item{gcgm.dwpar}{a list of B elements, each containing the parameters of the discrete Weibull marginal fitting with each environment. This input is required only for method "gcgm". Default is \code{NULL}.}
 }
 \details{
 rgm is a Bayesian random graphical model that infers the location of each environment in a 2-dimensional latent space. The probability of a link between two nodes in one environment is related to the distance of this environment to the other environments in the latent space as well as to the presence of an edge in the related environments. The model also allows for network-specific intercepts and regression coefficients for covariates measures at the edge level.
