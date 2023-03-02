@@ -9,8 +9,8 @@
 Gmcmc(G, Z = NULL, n.iter = 1000, alpha = NULL, beta = NULL, cloc = NULL, n.burnin = 500)
 }
 \arguments{
-  \item{G}{A binary matrix representing the graph structures, with rows for edges and columns for conditions.}
-  \item{Z}{An optional matrix of covariates.}
+  \item{G}{A binary matrix representing the graph structures, with dimension number of edges per number of conditions.}
+  \item{Z}{An optional matrix of covariates with dimension number of edges per number of covariates.}
   \item{n.iter}{The number of MCMC iterations.}
   \item{alpha}{An optional vector of initial values for the condition-specific intercepts.}
   \item{beta}{An optional vector of initial values for the regression coefficients associated to the covariates in `Z`.}
