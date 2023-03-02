@@ -1,26 +1,27 @@
 \name{Gmcmc}
 \alias{Gmcmc}
-\title{Bayesian Gaussian Graphical Model}
+\title{Random Graph Model}
 \description{
-  The function implements a Bayesian Gaussian Graphical Model for a given input matrix `G`. The function returns a list of the posterior distributions of condition-specific intercepts `alpha`, latent condition locations `cloc`, and regression coefficients `beta` (if the input matrix `Z` is provided). 
+  The function implements Bayesian inference of a random graph model for a given input matrix `G` containing graphs across different environments. 
+  The function returns a list of the posterior distributions of environment-specific intercepts `alpha`, latent environment locations `cloc`, and regression coefficients `beta` (if the input matrix `Z` of edge covariates is provided). 
 }
 \usage{
 Gmcmc(G, Z = NULL, n.iter = 1000, alpha = NULL, beta = NULL, cloc = NULL, n.burnin = 500)
 }
 \arguments{
-  \item{G}{A binary matrix representing the graph structure.}
+  \item{G}{A binary matrix representing the graph structures, with rows for edges and columns for conditions.}
   \item{Z}{An optional matrix of covariates.}
   \item{n.iter}{The number of MCMC iterations.}
-  \item{alpha}{An optional vector of condition-specific intercepts.}
-  \item{beta}{An optional matrix of regression coefficients for the covariates in `Z`.}
-  \item{cloc}{An optional matrix of latent condition locations.}
+  \item{alpha}{An optional vector of initial values for the condition-specific intercepts.}
+  \item{beta}{An optional vector of initial values for the regression coefficients associated to the covariates in `Z`.}
+  \item{cloc}{An optional matrix of initial values for the latent condition locations.}
   \item{n.burnin}{The number of burn-in iterations.}
 }
 \value{
   A list with components:
-  \item{alpha}{The posterior distribution of the condition-specific intercepts.}
-  \item{cloc}{The posterior distribution of the latent condition locations.}
-  \item{beta}{The posterior distribution of the regression coefficients for the covariates in `Z` (if provided).}
+  \item{alpha}{The MCMC samples of the condition-specific intercepts.}
+  \item{cloc}{The MCMC samples of the latent condition locations.}
+  \item{beta}{The MCMC samples of the regression coefficients associated to the covariates in `Z` (if provided).}
 }
 \examples{
 G <- matrix(rbinom(100, 1, 0.5), ncol = 10)
