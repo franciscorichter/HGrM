@@ -12,7 +12,7 @@ sim.rgm(n = 1000, D = 2, p = 81, B = 10, seed = 123, mcmc_iter = 50, alpha = NUL
 \item{p}{The number of nodes in each graph. Default is 81.}
 \item{B}{The number of conditions. Default is 10.}
 \item{seed}{The random seed. Default is 123.}
-\item{mcmc_iter}{The number of MCMC sampling for the generation of the graphs from the joint distribution. Default is 50.}
+\item{mcmc_iter}{The number of MCMC sampling for the generation of the graphs from the joint random graph distribution. Default is 50.}
 \item{alpha}{The true values of the condition-specific intercepts. If \code{NULL}, these are drawn from a N(-2,1) distribution.}
 \item{theta}{The true values of the regression coefficients associated to the covariates in X. If \code{NULL}, this is set to 2.5.}
 \item{loc}{The true coordinates of the B locations in the latent space. If \code{NULL}, these are drawn from a N(0,0.3) distribution.}
