@@ -9,10 +9,10 @@
 }
 \arguments{
   \item{data}{a list of B multivariate datasets measuring p variables across B number of environments.}
-  \item{X}{a data matrix for the edge covariates with dimension number of edges per number of covariates. Default is \code{NULL}, corresponding to the absence of edge covariates.}
+  \item{X}{a data matrix for the edge covariates with dimension n.edge x ncol(X). Default is \code{NULL}, corresponding to the absence of edge covariates.}
   \item{iter}{number of iterations for the MCMC sampler. Default is 1000.}
   \item{burnin}{number of burn-in iterations to discard. Default is 0.}
-  \item{initial.graphs}{an optional matrix of binary adjacency matrices for the initial graphs, with dimension n.edges x B. Default is \code{NULL} and in this case the initial graphs are constructed using graphical lasso (function huge).}
+  \item{initial.graphs}{an optional matrix of binary adjacency matrices for the initial graphs, with dimension n.edge x B. Default is \code{NULL} and in this case the initial graphs are constructed using graphical lasso (function huge).}
   \item{D}{number of dimensions in the latent space. Default is 2.}
   \item{initial.loc}{initial values for the B x D matrix of latent node positions. Default is \code{NULL} and in this case the initial values are drawn from a N(0,1) distribution.}
   \item{initial.alpha}{initial values for the B-dimensional intercepts. Default is \code{NULL} and in this case they are set to 0.}
@@ -30,7 +30,7 @@ The function first initializes the latent positions, intercepts, regression coef
 \value{
   A list containing the posterior samples of the model parameters. The list includes:
   \item{sample.alpha}{a B x (iter - burnin) matrix of the \code{alpha} posterior samples of the network-specific intercepts}
-  \item{sample.theta}{a matrix with ncol(X) rows and (iter - burnin) columns of the posterior samples of the regression coefficients for the covariates in X. This is only returned if X is not \code{NULL}.}
+  \item{sample.theta}{a ncol(X) x (iter - burnin) matrix of the posterior samples of the regression coefficients for the covariates in X. This is only returned if X is not \code{NULL}.}
   \item{sample.loc}{a B x D x (iter - burnin) array of the posterior samples of the latent positions of the conditions.}
   \item{sample.graphs}{an n.edge x B x (iter - burnin) array of the posterior samples of the network structures.}
   \item{sample.K}{an (n.edge+p) x B x (iter - burnin) array of the posterior samples of the precision matrices.}
