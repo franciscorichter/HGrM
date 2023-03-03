@@ -1,4 +1,4 @@
-blr_fast <- function(y, X, offset = 0, theta, theta_0 = c(0, 0, 0), N_sim = 1) {
+bpr <- function(y, X, offset = 0, theta, theta_0 = c(0, 0, 0), N_sim = 1) {
   
   
   # Dimensions of theta
