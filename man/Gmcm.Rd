@@ -24,7 +24,10 @@ Gmcmc(G, X = NULL, iter = 1000, alpha = NULL, theta = NULL, loc = NULL, burnin =
   \item{theta}{The MCMC samples of the regression coefficients associated to the covariates in X (if provided).}
 }
 \examples{
-G <- matrix(rbinom(100, 1, 0.5), ncol = 10)
+p <- 10
+n.edge <- p*(p-1)/2
+B <- 10
+G <- matrix(rbinom(n.edge*B, 1, 0.5), ncol = B)
 result <- Gmcmc(G, iter = 1000, burnin = 500)
 }
 \references{
