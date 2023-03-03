@@ -1,5 +1,5 @@
-\name{blr}
-\alias{blr}
+\name{bpr}
+\alias{bpr}
 \title{Bayesian Probit Regression}
 \description{
 This function implements Bayesian inference for a probit regression model. The function takes as inputs:
