@@ -13,7 +13,7 @@ Gmcmc(G, X = NULL, iter = 1000, alpha = NULL, theta = NULL, loc = NULL, burnin =
   \item{X}{An optional matrix of covariates with dimension n.edge x ncol(X).}
   \item{iter}{The number of MCMC iterations.}
   \item{alpha}{An optional vector of initial values for the condition-specific intercepts. If \code{NULL}, these are drawn from a N(0,1).}
-  \item{theta}{An optional vector of initial values for the regression coefficients associated to the covariates in `Z`. If \code{NULL}, these are set to zero.}
+  \item{theta}{An optional vector of initial values for the regression coefficients associated to the covariates in X. If \code{NULL}, these are set to zero.}
   \item{loc}{An optional matrix of initial values for the latent condition locations. If \code{NULL}, these are drawn from a N(0,1).}
   \item{burnin}{The number of burn-in iterations. Default is 0.}
 }
