@@ -1,4 +1,4 @@
-Gmcmc<-function(G, X=NULL, iter=1000,alpha=NULL,beta=NULL,loc=NULL, burnin=0)
+Gmcmc<-function(G, X=NULL, iter=1000,alpha=NULL,theta=NULL,loc=NULL, burnin=0)
 {
   B<-ncol(G)
   n.edge<-nrow(G)
@@ -22,10 +22,10 @@ Gmcmc<-function(G, X=NULL, iter=1000,alpha=NULL,beta=NULL,loc=NULL, burnin=0)
   if(!is.null(Z))
   {
     Z<-as.matrix(Z)
-    if(is.null(beta))
+    if(is.null(theta))
       beta<-as.matrix(rep(0,ncol(Z)))
     else
-      beta<-as.matrix(beta)
+      beta<-as.matrix(theta)
     beta.save<-matrix(0,nrow=ncol(Z),ncol=iter-burnin)
   }
 
@@ -91,5 +91,5 @@ Gmcmc<-function(G, X=NULL, iter=1000,alpha=NULL,beta=NULL,loc=NULL, burnin=0)
   if(is.null(Z))
     return(list(alpha=alpha.save,loc=cloc.save))
   else
-    return(list(alpha=alpha.save,beta=beta.save,loc=cloc.save))
+    return(list(alpha=alpha.save,theta=beta.save,loc=cloc.save))
 }
