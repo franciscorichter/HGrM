@@ -21,7 +21,7 @@ Gmcmc(G, X = NULL, iter = 1000, alpha = NULL, theta = NULL, loc = NULL, burnin =
   A list with components:
   \item{alpha}{The MCMC samples of the condition-specific intercepts.}
   \item{loc}{The MCMC samples of the latent condition locations.}
-  \item{theta}{The MCMC samples of the regression coefficients associated to the covariates in `Z` (if provided).}
+  \item{theta}{The MCMC samples of the regression coefficients associated to the covariates in X (if provided).}
 }
 \examples{
 G <- matrix(rbinom(100, 1, 0.5), ncol = 10)
