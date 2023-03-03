@@ -32,7 +32,7 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
   else
     sample.cloc[,,1]<-initial.loc
 
-  Z<-X
+  Z <- X
   if(!is.null(X))
   {
     Z<-as.matrix(X)
@@ -95,13 +95,13 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
     # update latent node and condition locations
     G<-sample.graphs[,,k]
     if(is.null(Z))
-      G.loc<-Gmcmc(G,alpha=sample.alpha[,k],cloc=sample.cloc[,,k],n.iter=1,n.burnin = 0)
+      G.loc<-Gmcmc(G,alpha=sample.alpha[,k],loc=sample.cloc[,,k],iter=1,burnin = 0)
     else
-      G.loc<-Gmcmc(G,Z=Z,alpha=sample.alpha[,k],beta=sample.beta[,k],cloc=sample.cloc[,,k],n.iter=1,n.burnin = 0)
+      G.loc<-Gmcmc(G,X=Z,alpha=sample.alpha[,k],theta=sample.beta[,k],loc=sample.cloc[,,k],iter=1,burnin = 0)
 
-    cloc<-G.loc$cloc[,,1]
+    cloc<-G.loc$loc[,,1]
     alpha<-G.loc$alpha
-    beta<- G.loc$beta
+    beta<- G.loc$theta
 
     dist.cond<-matrix(ncol=B,nrow=n.edge)
     for (b in 1:B){
