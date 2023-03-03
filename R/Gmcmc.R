@@ -8,6 +8,8 @@ Gmcmc<-function(G, X=NULL, iter=1000,alpha=NULL,theta=NULL,loc=NULL, burnin=0)
   e2<-m[lower.tri(m)]
   if(is.null(loc))
     cloc<-matrix(rnorm(B*2),ncol=2)
+  else
+    cloc <- loc
   if(is.null(alpha))
     alpha<-rnorm(B)
 
