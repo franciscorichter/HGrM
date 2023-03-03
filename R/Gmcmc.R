@@ -1,4 +1,4 @@
-Gmcmc<-function(G, X=NULL, iter=1000,alpha=NULL,beta=NULL,loc=NULL, burnin=0)
+Gmcmc<-function(G, Z=NULL, iter=1000,alpha=NULL,beta=NULL,loc=NULL, burnin=0)
 {
   B<-ncol(G)
   n.edge<-nrow(G)
@@ -13,7 +13,6 @@ Gmcmc<-function(G, X=NULL, iter=1000,alpha=NULL,beta=NULL,loc=NULL, burnin=0)
   if(is.null(alpha))
     alpha<-rnorm(B)
 
-  Z <- X
   dim.cond<-ncol(cloc)
   cloc.save<-array(dim = c(B,ncol(cloc), iter-burnin))
   alpha.save<-matrix(0,nrow=B,ncol= iter-burnin)
@@ -90,5 +89,5 @@ Gmcmc<-function(G, X=NULL, iter=1000,alpha=NULL,beta=NULL,loc=NULL, burnin=0)
   if(is.null(Z))
     return(list(alpha=alpha.save,loc=cloc.save))
   else
-    return(list(alpha=alpha.save,theta=beta.save,loc=cloc.save))
+    return(list(alpha=alpha.save,beta=beta.save,loc=cloc.save))
 }
