@@ -46,7 +46,7 @@ bpr <- function(y, X, offset = 0, theta, theta_0 = c(0, 0, 0), N_sim = 1) {
     theta_chain[t, ] <- theta
   }
   
-  return(list(theta = theta_chain, z = z))
+  return(theta_chain)
 }
 
 
