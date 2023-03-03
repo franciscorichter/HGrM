@@ -1,4 +1,4 @@
-Gmcmc<-function(G, Z=NULL, n.iter=1000,alpha=NULL,beta=NULL,cloc=NULL,n.burnin=500)
+Gmcmc<-function(G, X=NULL, iter=1000,alpha=NULL,theta=NULL,loc=NULL, burnin=0)
 {
   B<-ncol(G)
   n.edge<-nrow(G)
@@ -6,29 +6,29 @@ Gmcmc<-function(G, Z=NULL, n.iter=1000,alpha=NULL,beta=NULL,cloc=NULL,n.burnin=5
   m<-matrix(1:p,ncol=p,nrow = p)
   e1<-t(m)[lower.tri(m)]
   e2<-m[lower.tri(m)]
-  if(is.null(cloc))
+  if(is.null(loc))
     cloc<-matrix(rnorm(B*2),ncol=2)
   if(is.null(alpha))
     alpha<-rnorm(B)
 
+  Z <- X
   dim.cond<-ncol(cloc)
-  cloc.save<-array(dim = c(B,ncol(cloc),n.iter-n.burnin))
-  alpha.save<-matrix(0,nrow=B,ncol=n.iter-n.burnin)
-  # log.graph.prob.save<-rep(0,n.iter-n.burnin)
-
+  cloc.save<-array(dim = c(B,ncol(cloc), iter-burnin))
+  alpha.save<-matrix(0,nrow=B,ncol= iter-burnin)
+ 
   if(!is.null(Z))
   {
     Z<-as.matrix(Z)
-    if(is.null(beta))
+    if(is.null(theta))
       beta<-as.matrix(rep(0,ncol(Z)))
     else
-      beta<-as.matrix(beta)
-    beta.save<-matrix(0,nrow=ncol(Z),ncol=n.iter-n.burnin)
+      beta<-as.matrix(theta)
+    beta.save<-matrix(0,nrow=ncol(Z),ncol=iter-burnin)
   }
 
   #################################################################
 
-  for (k in 1:n.iter){
+  for (k in 1:iter){
     y<-as.vector(G)
 
     #####################################################
@@ -74,11 +74,11 @@ Gmcmc<-function(G, Z=NULL, n.iter=1000,alpha=NULL,beta=NULL,cloc=NULL,n.burnin=5
       beta<-t(beta)
     }
 
-    if (k>n.burnin){
-      cloc.save[,,k-n.burnin]<-cloc
-      alpha.save[,k-n.burnin]<-alpha
+    if (k>burnin){
+      cloc.save[,,k-burnin]<-cloc
+      alpha.save[,k-burnin]<-alpha
       if(!is.null(Z))
-        beta.save[,k-n.burnin]<-beta
+        beta.save[,k-burnin]<-beta
     }
   }
 
@@ -86,8 +86,7 @@ Gmcmc<-function(G, Z=NULL, n.iter=1000,alpha=NULL,beta=NULL,cloc=NULL,n.burnin=5
 
 
   if(is.null(Z))
-    return(list(alpha=alpha.save,cloc=cloc.save))
+    return(list(alpha=alpha.save,loc=cloc.save))
   else
-    #    return(list(alpha=alpha.save,beta=beta.save,cloc=cloc.save,log.graph.prob=log.graph.prob.save))
-    return(list(alpha=alpha.save,beta=beta.save,cloc=cloc.save))
+    return(list(alpha=alpha.save,theta=beta.save,loc=cloc.save))
 }
