@@ -48,7 +48,7 @@ Gmcmc<-function(G, Z=NULL, n.iter=1000,alpha=NULL,beta=NULL,cloc=NULL,n.burnin=5
       offset<-hlp2+rep(alpha,each=n.edge)
       if(!is.null(Z))
         offset<-hlp2+rep(alpha,each=n.edge)+ rep(Z%*%beta,B)
-      cloc[b,]<-blr(y,X,offset,theta = cloc[b,],theta_0 = rep(0,dim.cond))
+      cloc[b,]<-bpr(y,X,offset,theta = cloc[b,],theta_0 = rep(0,dim.cond))
     }
 
     #####################################
@@ -62,7 +62,7 @@ Gmcmc<-function(G, Z=NULL, n.iter=1000,alpha=NULL,beta=NULL,cloc=NULL,n.burnin=5
         offset<-dist.cond[,b]+ Z%*%beta
       y<-G[,b]
       X<-as.matrix(rep(1,length(y)))
-      alpha[b]<-blr(y,X,offset,theta = alpha[b],theta_0 = 0)
+      alpha[b]<-bpr(y,X,offset,theta = alpha[b],theta_0 = 0)
     }
 
 
@@ -70,7 +70,7 @@ Gmcmc<-function(G, Z=NULL, n.iter=1000,alpha=NULL,beta=NULL,cloc=NULL,n.burnin=5
       y<-as.vector(G)
       X<-apply(Z,2,rep,B)
       offset<-c(dist.cond)+rep(alpha,each=n.edge)
-      beta<-blr(y,X,offset,theta = beta,theta_0 = rep(0,length(beta)))
+      beta<-bpr(y,X,offset,theta = beta,theta_0 = rep(0,length(beta)))
       beta<-t(beta)
     }
 
