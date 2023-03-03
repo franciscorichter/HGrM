@@ -28,7 +28,7 @@ p <- 10
 n.edge <- p*(p-1)/2
 B <- 10
 G <- matrix(rbinom(n.edge*B, 1, 0.5), ncol = B)
-result <- Gmcmc(G, iter = 1000, burnin = 500)
+result <- Gmcmc(G, iter = 100, burnin = 0)
 }
 \references{
   V. J. Anderson and J. Robinson (2008). "Bayesian analysis of binary and polychotomous response data". \emph{Journal of the Royal Statistical Society: Series B}, 70(3), pp. 579-599.
