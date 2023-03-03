@@ -2,7 +2,7 @@
 \alias{Gmcmc}
 \title{Random Graph Model}
 \description{
-  The function implements Bayesian inference of a random graph model for a given input matrix `G` containing graphs across B different environments. 
+  The function implements Bayesian inference of a random graph model for a given input matrix G containing graphs across B different environments. 
   The function returns a list of the posterior distributions of environment-specific intercepts `alpha`, latent environment locations `loc`, and regression coefficients `theta` (if the input matrix `X` of edge covariates is provided). 
 }
 \usage{
