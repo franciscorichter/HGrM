@@ -1,6 +1,3 @@
-
-
-
 sample.data<-function(data,discrete.data, K, tpoints){
   B<-length(data)
   p<-ncol(data[[1]])
