@@ -37,7 +37,6 @@ Gmcmc<-function(G, X=NULL, iter=1000,alpha=NULL,theta=NULL,loc=NULL, burnin=0)
     for (b in 1:B){
       # update the latent condition locations
       X<-apply(cloc,2,rep,each=n.edge)*rep(G[,b],B)
-      print(dim(X))
       X[(b-1)*n.edge+(1:n.edge),]<-matrix(apply(G,1,function(g,cloc,b){colSums(cloc * g)-cloc[b,]*g[b]},cloc=cloc,b=b),nrow=n.edge,ncol=dim.cond,byrow=T)
       hlp2<-NULL
       for (bb in 1:B){
