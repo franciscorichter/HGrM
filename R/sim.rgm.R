@@ -1,4 +1,4 @@
-sim.rgm <- function(n=1000, D = 2, p = 81, B = 10, seed = 123, mcmc_iter=50, alpha=NULL,theta=NULL,loc=NULL, X=NULL) {
+sim.rgm <- function(n=346, D = 2, p = 87, B = 13, seed = 123, mcmc_iter=100, alpha=NULL,theta=NULL,loc=NULL, X=NULL) {
 
   set.seed(seed)
 
