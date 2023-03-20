@@ -33,6 +33,8 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
   else
     sample.cloc[,,1]<-initial.loc
 
+  pi.probit[,,1]<-rep(0,iter)
+  
   Z <- X
   if(!is.null(X))
   {
