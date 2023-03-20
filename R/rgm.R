@@ -7,6 +7,7 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
   sample.graphs<-array(dim=c(n.edge,B,iter))
   sample.K<-array(dim=c(n.edge+p,B,iter))
   sample.pi<-array(dim=c(n.edge,B,iter))
+  pi.probit = array(dim=c(n.edge,B,iter))
 
   # lower triangle of pxp matrix
   m<-matrix(1:p,ncol=p,nrow = p)
@@ -114,9 +115,15 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
         for (j in 1:(i-1)){
           ind<-e1==j & e2==i
           if(is.null(Z))
+            {
             Pi[ind,b]<-pnorm(alpha[b]+dist.cond[ind,b])
+            pi.probit[ind,b,k]<-pnorm(alpha[b]+dist.cond[ind,b])
+            }
           else
+            {
             Pi[ind,b]<-pnorm(alpha[b]+dist.cond[ind,b]+Z[ind,]%*%beta)
+            pi.probit[ind,b,k]<-pnorm(alpha[b]+dist.cond[ind,b]+Z[ind,]%*%beta)
+            }
         }
       }
     }
@@ -153,37 +160,11 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
   sample.graphs<-sample.graphs[,,-(1:burnin)]
   sample.K<-sample.K[,,-(1:burnin)]
   sample.pi<-sample.pi[,,-(1:burnin)]
+  pi.probit<-pi.probit[,,-(1:burnin)]
 
   if(!is.null(Z))
     sample.beta<-sample.beta[,-(1:burnin),drop=FALSE]
-
-  ##probit probabilities from latent space
-  n.iter<-dim(sample.cloc)[3]
-  pi.probit = array(dim=c(n.edge,B,n.iter))
-  for (k in 1: n.iter){
-    G<-sample.graphs[,,k]
-    alpha<-sample.alpha[,k]
-    if(!is.null(Z))
-      beta<-sample.beta[,k]
-    cloc<-sample.cloc[,,k]
-    dist.cond<-matrix(ncol=B,nrow=n.edge)
-    for (b in 1:B){
-      #updating condition-specific intercept
-      dist.cond[,b]<-apply(G,1,function(g,cloc,b){crossprod(apply(cloc*g,2,sum)-cloc[b,]*g[b],cloc[b,])},cloc=cloc,b=b)
-    }
-    Pi = matrix(ncol=B,nrow=n.edge)
-    for (b in 1:B){
-      for (i in 2:p){
-        for (j in 1:(i-1)){
-          ind<-e1==j & e2==i
-          if(is.null(Z))
-            pi.probit[ind,b,k]<-pnorm(alpha[b]+dist.cond[ind,b])
-          if(!is.null(Z))
-            pi.probit[ind,b,k]<-pnorm(alpha[b]+dist.cond[ind,b]+Z[ind,]%*%beta)
-        }
-      }
-    }
-  }
+  
   if(is.null(Z))
     return(list(sample.alpha=sample.alpha,sample.loc=sample.cloc,sample.K=sample.K,sample.graphs=sample.graphs,sample.pi=sample.pi,pi.probit=pi.probit))
   else
