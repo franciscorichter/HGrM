@@ -32,8 +32,6 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
     sample.cloc[,,1]<-matrix(rnorm(B*D),ncol=D)
   else
     sample.cloc[,,1]<-initial.loc
-
-  pi.probit[,,1]<-rep(0,iter)
   
   Z <- X
   if(!is.null(X))
@@ -119,12 +117,12 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
           if(is.null(Z))
             {
             Pi[ind,b]<-pnorm(alpha[b]+dist.cond[ind,b])
-            pi.probit[ind,b,k]<-pnorm(alpha[b]+dist.cond[ind,b])
+            pi.probit[ind,b,k+1]<-pnorm(alpha[b]+dist.cond[ind,b])
             }
           else
             {
             Pi[ind,b]<-pnorm(alpha[b]+dist.cond[ind,b]+Z[ind,]%*%beta)
-            pi.probit[ind,b,k]<-pnorm(alpha[b]+dist.cond[ind,b]+Z[ind,]%*%beta)
+            pi.probit[ind,b,k+1]<-pnorm(alpha[b]+dist.cond[ind,b]+Z[ind,]%*%beta)
             }
         }
       }
