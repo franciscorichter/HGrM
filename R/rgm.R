@@ -66,7 +66,6 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
 
 
   if (method[1]=="gcgm"){
-    discrete.data<-data
     #calculate truncated points
     tpoints<-vector("list",B)
     for(i in 1:B)
@@ -89,7 +88,7 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
 
     # update data if the Gaussian Copula GM (gcgm) is selected
     if (method[1]=="gcgm"){
-      data<-sample.data(data,discrete.data, K, tpoints)
+      data<-sample.data(data, K, tpoints)
     }
 
 
