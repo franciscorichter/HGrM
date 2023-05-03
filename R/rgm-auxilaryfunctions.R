@@ -1,4 +1,4 @@
-sample.data<-function(data,discrete.data, K, tpoints){
+sample.data<-function(data, K, tpoints){
   B<-length(data)
   p<-ncol(data[[1]])
   dat<-vector(mode="list", length=B)
