@@ -12,7 +12,7 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 
 // getRegionCPP
 IntegerVector getRegionCPP(NumericVector x, NumericVector y);
-RcppExport SEXP _HGrM_getRegionCPP(SEXP xSEXP, SEXP ySEXP) {
+RcppExport SEXP _rgm_getRegionCPP(SEXP xSEXP, SEXP ySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -24,7 +24,7 @@ END_RCPP
 }
 // checkRegionCPP
 int checkRegionCPP(int x, int y);
-RcppExport SEXP _HGrM_checkRegionCPP(SEXP xSEXP, SEXP ySEXP) {
+RcppExport SEXP _rgm_checkRegionCPP(SEXP xSEXP, SEXP ySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -36,7 +36,7 @@ END_RCPP
 }
 // timesTwo
 NumericVector timesTwo(NumericVector x);
-RcppExport SEXP _HGrM_timesTwo(SEXP xSEXP) {
+RcppExport SEXP _rgm_timesTwo(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -47,13 +47,13 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_HGrM_getRegionCPP", (DL_FUNC) &_HGrM_getRegionCPP, 2},
-    {"_HGrM_checkRegionCPP", (DL_FUNC) &_HGrM_checkRegionCPP, 2},
-    {"_HGrM_timesTwo", (DL_FUNC) &_HGrM_timesTwo, 1},
+    {"_rgm_getRegionCPP", (DL_FUNC) &_rgm_getRegionCPP, 2},
+    {"_rgm_checkRegionCPP", (DL_FUNC) &_rgm_checkRegionCPP, 2},
+    {"_rgm_timesTwo", (DL_FUNC) &_rgm_timesTwo, 1},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_HGrM(DllInfo *dll) {
+RcppExport void R_init_rgm(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

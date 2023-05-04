@@ -2,14 +2,14 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 getRegionCPP <- function(x, y) {
-    .Call('_HGrM_getRegionCPP', PACKAGE = 'HGrM', x, y)
+    .Call('_rgm_getRegionCPP', PACKAGE = 'rgm', x, y)
 }
 
 checkRegionCPP <- function(x, y) {
-    .Call('_HGrM_checkRegionCPP', PACKAGE = 'HGrM', x, y)
+    .Call('_rgm_checkRegionCPP', PACKAGE = 'rgm', x, y)
 }
 
 timesTwo <- function(x) {
-    .Call('_HGrM_timesTwo', PACKAGE = 'HGrM', x)
+    .Call('_rgm_timesTwo', PACKAGE = 'rgm', x)
 }
 

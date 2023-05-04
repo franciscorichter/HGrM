@@ -2,7 +2,7 @@ library(HGrM)
 ########
 #Analysis
 set.seed(123)
-iter<-10 #outer iterations for LSM
+iter<-100 #outer iterations for LSM
 bd.iter<-10 #inner iterations for bdgraph
 
 da=sim_HGrM(mcmc_iter = 10)
@@ -20,14 +20,14 @@ for(i in 1:B){
 
 save(initial.graphs,file = "initialgraphs.RData")
 
-time0=proc.time()
-res<-lsm.bd(data = data,
+time0s=proc.time()
+res_slow<-lsm.bd(data = data,
             D=2, 
             bd.iter=bd.iter, 
             iter=iter,
             initial.graphs = initial.graphs)
-time1=proc.time()
-time1-time0
+time1s=proc.time()
+time1s-time0s
 
 #save.image("LSM-simresults-p100.RData")
 
