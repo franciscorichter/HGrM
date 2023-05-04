@@ -14,7 +14,7 @@ Bayesian implementation: The Bayesian implementation of the RGM fully quantifies
 
 Network posterior analysis: rgm offers tools to visualize and interpret the microbiome network posteriors, revealing not only a stable core structure but also individual differences between various body sites and relationships between different classes of microbes.
 
-    Taxonomical classification support: The package is capable of handling taxonomical classification data, allowing researchers to easily compare the structural similarity of microbial communities across body sites.
+Taxonomical classification support: The package is capable of handling taxonomical classification data, allowing researchers to easily compare the structural similarity of microbial communities across body sites.
 
 # Installation:
 
