@@ -4,15 +4,15 @@ rgm is an R package designed for the analysis of microbiota systems from metagen
 
 # Features:
 
-    Joint inference of microbiota systems: rgm enables the simultaneous analysis of metagenomic data from various body sites, allowing researchers to better understand the complex network of interactions among microbes.
+Joint inference of microbiota systems: rgm enables the simultaneous analysis of metagenomic data from various body sites, allowing researchers to better understand the complex network of interactions among microbes.
 
-    Random Graphical Models (RGM): The package employs an RGM approach to account for heterogeneity across different environments while quantifying their structural relatedness.
+Random Graphical Models (RGM): The package employs an RGM approach to account for heterogeneity across different environments while quantifying their structural relatedness.
 
-    Inclusion of external covariates: rgm allows users to incorporate external covariates at both the microbial and interaction levels, which further adapts to the richness and complexity of microbiome data.
+Inclusion of external covariates: rgm allows users to incorporate external covariates at both the microbial and interaction levels, which further adapts to the richness and complexity of microbiome data.
 
-    Bayesian implementation: The Bayesian implementation of the RGM fully quantifies parameter uncertainty, providing robust and reliable results.
+Bayesian implementation: The Bayesian implementation of the RGM fully quantifies parameter uncertainty, providing robust and reliable results.
 
-    Network posterior analysis: rgm offers tools to visualize and interpret the microbiome network posteriors, revealing not only a stable core structure but also individual differences between various body sites and relationships between different classes of microbes.
+Network posterior analysis: rgm offers tools to visualize and interpret the microbiome network posteriors, revealing not only a stable core structure but also individual differences between various body sites and relationships between different classes of microbes.
 
     Taxonomical classification support: The package is capable of handling taxonomical classification data, allowing researchers to easily compare the structural similarity of microbial communities across body sites.
 
