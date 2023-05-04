@@ -1,6 +1,6 @@
-rgm is an R package designed for the analysis of microbiota systems from metagenomic data across multiple body sites using Random Graphical Models (RGM). It captures the heterogeneity and structural relationships among different microbial communities and allows for the integration of external covariates at both the microbial and interaction levels, providing a comprehensive and adaptable approach to analyzing the complexity of microbiome data.
+#rgm is an R package designed for the analysis of microbiota systems from metagenomic data across multiple body sites using Random Graphical Models (RGM). It captures the heterogeneity and structural relationships among different microbial communities and allows for the integration of external covariates at both the microbial and interaction levels, providing a comprehensive and adaptable approach to analyzing the complexity of microbiome data.
 
-Features:
+#Features:
 
     Joint inference of microbiota systems: rgm enables the simultaneous analysis of metagenomic data from various body sites, allowing researchers to better understand the complex network of interactions among microbes.
 
@@ -14,19 +14,15 @@ Features:
 
     Taxonomical classification support: The package is capable of handling taxonomical classification data, allowing researchers to easily compare the structural similarity of microbial communities across body sites.
 
-Installation:
+#Installation:
 
 To install the latest version of rgm, use the following command in R:
 
-arduino
-
 install.packages("rgm")
 
-Usage:
+#Usage:
 
 For detailed instructions on how to use rgm for your metagenomic data analysis, refer to the package vignette and documentation:
-
-scss
 
 library(rgm)
 vignette("rgm-introduction")
