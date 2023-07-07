@@ -3,17 +3,18 @@ rgm is an R package designed to provide a comprehensive and adaptable framework 
 
 # Features:
 
-    Joint Inference of Systems: rgm enables the simultaneous analysis of data from various fields, allowing for a deeper understanding of complex network interactions.
+  Joint Inference of Systems: rgm enables the simultaneous analysis of data from various fields, allowing for a deeper understanding of complex network interactions.
 
-    Random Graphical Models: The package employs RGM to handle heterogeneity across different environments and quantify structural relatedness.
+  Random Graphical Models: The package employs RGM to handle heterogeneity across different environments and quantify structural relatedness.
 
-    Inclusion of External Covariates: Users can incorporate external covariates at both the node and interaction levels to accommodate the richness and complexity of network data.
+  Inclusion of External Covariates: Users can incorporate external covariates at both the node and interaction levels to accommodate the richness and complexity of network data.
 
-    Bayesian Implementation: This feature ensures a robust quantification of parameter uncertainty, thus providing reliable results.
+  Bayesian Implementation: This feature ensures a robust quantification of parameter uncertainty, thus providing reliable results.
 
-    Network Posterior Analysis: The package offers tools to visualize and interpret network posteriors, highlighting a stable core structure and detailing individual differences and relationships.
+  Network Posterior Analysis: The package offers tools to visualize and interpret network posteriors, highlighting a stable core structure and detailing individual differences and relationships.
 
 # Installation:
+
 The latest version of rgm can be installed from Github in R using the following command:
 
 ```
