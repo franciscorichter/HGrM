@@ -1,32 +1,30 @@
-# Description 
+# Description:
+rgm is an R package designed to provide a comprehensive and adaptable framework for analyzing complex network data using Random Graphical Models (RGM). This package can account for the heterogeneity and structural relationships among different communities or networks, and it allows users to incorporate external covariates at both the node and interaction levels.
 
-rgm is an R package designed for the analysis of microbiota systems from metagenomic data across multiple body sites using Random Graphical Models (RGM). It captures the heterogeneity and structural relationships among different microbial communities and allows for the integration of external covariates at both the microbial and interaction levels, providing a comprehensive and adaptable approach to analyzing the complexity of microbiome data.
+# Features:
 
-# Features
+    Joint Inference of Systems: rgm enables the simultaneous analysis of data from various fields, allowing for a deeper understanding of complex network interactions.
 
-Joint inference of microbiota systems: rgm enables the simultaneous analysis of metagenomic data from various body sites, allowing researchers to better understand the complex network of interactions among microbes.
+    Random Graphical Models: The package employs RGM to handle heterogeneity across different environments and quantify structural relatedness.
 
-Random Graphical Models (RGM): The package employs an RGM approach to account for heterogeneity across different environments while quantifying their structural relatedness.
+    Inclusion of External Covariates: Users can incorporate external covariates at both the node and interaction levels to accommodate the richness and complexity of network data.
 
-Inclusion of external covariates: rgm allows users to incorporate external covariates at both the microbial and interaction levels, which further adapts to the richness and complexity of microbiome data.
+    Bayesian Implementation: This feature ensures a robust quantification of parameter uncertainty, thus providing reliable results.
 
-Bayesian implementation: The Bayesian implementation of the RGM fully quantifies parameter uncertainty, providing robust and reliable results.
+    Network Posterior Analysis: The package offers tools to visualize and interpret network posteriors, highlighting a stable core structure and detailing individual differences and relationships.
 
-Network posterior analysis: rgm offers tools to visualize and interpret the microbiome network posteriors, revealing not only a stable core structure but also individual differences between various body sites and relationships between different classes of microbes.
+# Installation:
+The latest version of rgm can be installed from Github in R using the following command:
 
-Taxonomical classification support: The package is capable of handling taxonomical classification data, allowing researchers to easily compare the structural similarity of microbial communities across body sites.
+install.packages("devtools")
+devtools::install_github("rgm/rgm")
 
-# Installation
-
-To install the latest version of rgm, use the following command in R:
-
-install.packages("rgm")
-
-# Usage
-
-For detailed instructions on how to use rgm for your metagenomic data analysis, refer to the package vignette and documentation:
+# Usage:
+For a comprehensive guide on using rgm for data analysis, refer to the package vignette and documentation:
 
 ```
 library(rgm)
 vignette("rgm-introduction")
 ```
+
+Note: While rgm was initially designed with applications in microbiome analysis in mind, it is broadly applicable to a variety of fields that require graphical modeling of network data.
