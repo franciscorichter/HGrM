@@ -16,8 +16,10 @@ rgm is an R package designed to provide a comprehensive and adaptable framework 
 # Installation:
 The latest version of rgm can be installed from Github in R using the following command:
 
+```
 install.packages("devtools")
-devtools::install_github("rgm/rgm")
+devtools::install_github("franciscorichter/rgm")
+```
 
 # Usage:
 For a comprehensive guide on using rgm for data analysis, refer to the package vignette and documentation:
