@@ -1,0 +1,47 @@
+---
+title: "rgm-introduction"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{rgm-introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(rgm)
+# Load necessary libraries
+library(BDgraph) # Assuming BDgraph is required for bdgraph.sim function
+
+# Simulate data
+simulated_data <- sim.rgm(n = 100,   # Number of samples
+                          D = 2,     # Dimension
+                          p = 5,     # Number of nodes
+                          B = 2,     # Number of conditions
+                          seed = 123,verbatim = F) # Seed for reproducibility
+
+# View the structure of the simulated data
+str(simulated_data$data)
+
+```
+
+
+
+
+```{r}
+# Simple visualization or summary of the simulated data
+# Here we can just print a summary of the first condition
+print(summary(simulated_data$data[[1]]))
+
+# Optionally, visualize the graph of the first condition
+# This requires the igraph package for visualization
+library(igraph)
+graph1 <- graph_from_adjacency_matrix(simulated_data$G[ , , 1])
+plot(graph1)
+```
