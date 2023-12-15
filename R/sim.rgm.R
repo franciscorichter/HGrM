@@ -1,4 +1,14 @@
-sim.rgm <- function(n=346, D = 2, p = 87, B = 13, seed = 123, mcmc_iter=100, alpha=NULL,theta=NULL,loc=NULL, X=NULL) {
+sim.rgm <- function(n=346,
+                    D = 2,
+                    p = 87,
+                    B = 13,
+                    seed = 123,
+                    mcmc_iter=100,
+                    alpha=NULL,
+                    theta=NULL,
+                    loc=NULL,
+                    X=NULL,
+                    verbatim=TRUE) {
 
   set.seed(seed)
 
@@ -37,6 +47,7 @@ sim.rgm <- function(n=346, D = 2, p = 87, B = 13, seed = 123, mcmc_iter=100, alp
   Pi.true <- matrix(ncol = B, nrow = n.edge)
   sp<-NULL
   for(i in 1:mcmc_iter) {
+    if(verbatim) print(i)
     for (b in 1:B){
       # Updating condition-specific intercept
      dist.cond[,b] <- apply(G.true, 1, function(g, cloc, b) { crossprod(apply(cloc*g, 2, sum) - cloc[b,]*g[b], cloc[b,]) }, cloc = cloc.true, b = b)

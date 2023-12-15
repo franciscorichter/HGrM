@@ -1,7 +1,11 @@
 devtools::install_github("franciscorichter/HGrM")
-library(HGrM)
+
+
+
+
+library(rgm)
 
 ### HGrM  test
 
-da = sim_HGrM()
+da = sim.rgm()
 
