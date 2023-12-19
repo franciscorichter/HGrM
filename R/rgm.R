@@ -18,7 +18,7 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
   {
     for(i in 1:B)
     {
-      g<-huge.select(huge(as.matrix(data[[i]]),method="glasso"),criterion="stars")$refit
+      g<-huge.select(huge(as.matrix(data[[i]]),method="glasso",verbose = FALSE),criterion="stars",verbose = FALSE)$refit
       sample.graphs[,i,1]<-g[lt]
     }
   }
@@ -32,7 +32,7 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
     sample.cloc[,,1]<-matrix(rnorm(B*D),ncol=D)
   else
     sample.cloc[,,1]<-initial.loc
-  
+
   Z <- X
   if(!is.null(X))
   {
@@ -163,7 +163,7 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
 
   if(!is.null(Z))
     sample.beta<-sample.beta[,-(1:burnin),drop=FALSE]
-  
+
   if(is.null(Z))
     return(list(sample.alpha=sample.alpha,sample.loc=sample.cloc,sample.K=sample.K,sample.graphs=sample.graphs,sample.pi=sample.pi,pi.probit=pi.probit))
   else
