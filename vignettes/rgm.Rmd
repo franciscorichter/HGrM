@@ -1,11 +1,12 @@
 ---
-title: "RGM package"
+title: "An Introduction to rgm"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{RGM package}
+  %\VignetteIndexEntry{rgm}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
