@@ -1,23 +1,14 @@
 # rgm: Advanced Random Graphical Models for Network Analysis
 
-`rgm` is an R package that implements advanced Random Graphical Models (RGM) for the analysis of complex network data. It is particularly adept at handling heterogeneous data across various environments, making it a versatile tool for exploring intricate network interactions and structural relationships.
+`rgm` is an R package that implements state-of-the-art Random Graphical Models (RGM) for the analysis of complex network data. It excels in handling heterogeneous data across various environments, offering a powerful tool for exploring intricate network interactions and structural relationships.
 
-## Features
+## Key Features
 
-### Joint Inference Across Multiple Environments
-`rgm` facilitates the simultaneous analysis of data from diverse environments or communities, enabling a more comprehensive understanding of complex network interactions.
-
-### Advanced Random Graphical Modeling
-The package utilizes sophisticated RGM methodologies to manage heterogeneity and quantify structural relationships between different datasets.
-
-### Incorporation of External Covariates
-Users can integrate external covariates at both the node and interaction levels, allowing for a richer and more nuanced analysis of network data.
-
-### Bayesian Framework
-`rgm` employs a Bayesian approach, ensuring robust quantification of parameter uncertainty and providing more reliable analytical results.
-
-### Network Posterior Visualization and Analysis
-The package offers tools for visualizing and interpreting network posteriors, revealing stable core structures, and elucidating individual differences and relationships.
+- **Joint Inference Across Multiple Environments**: `rgm` enables simultaneous analysis of data from diverse environments or communities, providing a comprehensive understanding of complex network interactions.
+- **Advanced Random Graphical Modeling**: The package employs sophisticated RGM methodologies to effectively handle heterogeneity and quantify structural relationships between datasets.
+- **Integration of External Covariates**: Users can incorporate external covariates at both node and interaction levels, allowing for a more nuanced analysis of network data.
+- **Bayesian Framework**: `rgm` uses a Bayesian approach to robustly quantify parameter uncertainty, offering more reliable analytical results.
+- **Network Posterior Visualization and Analysis**: The package includes tools for visualizing and interpreting network posteriors, revealing core structures and elucidating individual differences and relationships.
 
 ## Installation
 
@@ -34,15 +25,13 @@ For detailed instructions on using `rgm` for data analysis, refer to the package
 
 ```R
 library(rgm)
-vignette("rgm-introduction")
+vignette("rgm")
 ```
 
 **Note**: While initially designed for microbiome analysis, `rgm` is broadly applicable across various fields requiring advanced graphical modeling of network data.
 
-## Citation
+## Principal Reference
 
-If you use `rgm` in your research, please cite:
-
-Vinciotti, V., Wit, E., & Richter, F. (2023). Random graphical model of microbiome interactions in related environments. arXiv preprint arXiv:2304.01956.
+The methodologies implemented in the rgm package are principally derived from the work described in Vinciotti, V., Wit, E., & Richter, F. (2023). "Random Graphical Model of Microbiome Interactions in Related Environments." arXiv preprint arXiv:2304.01956.
 
 
