@@ -44,3 +44,5 @@ vignette("rgm-introduction")
 If you use `rgm` in your research, please cite:
 
 Vinciotti, V., Wit, E., & Richter, F. (2023). Random graphical model of microbiome interactions in related environments. arXiv preprint arXiv:2304.01956.
+
+

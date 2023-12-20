@@ -1,5 +1,5 @@
 ---
-title: "rgm-introduction"
+title: "RGM package"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{rgm-introduction}
@@ -14,34 +14,83 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+
+# Introduction
+
+This vignette is designed to guide users through the process of running an experiment using the RGM package and subsequently analyzing the results. We will start by showcasing the code necessary for conducting the experiment, and then proceed to a detailed analysis of the results using pre-computed data. The focus will be on interpreting various plots generated from the experiment, providing insights into the performance and accuracy of the RGM package.
+
+
+# Running the Experiment
+
+The following R code demonstrates how to set up and run the simulation experiment using the RGM package. Note that due to the extensive computation time required, this code is not executed in this vignette. However, you can run it in your local R environment to replicate the experiment.
+
+```{r run-experiment, eval=FALSE}
+# Loading the RGM package
 library(rgm)
-# Load necessary libraries
-library(BDgraph) # Assuming BDgraph is required for bdgraph.sim function
 
-# Simulate data
-simulated_data <- sim.rgm(n = 100,   # Number of samples
-                          D = 2,     # Dimension
-                          p = 5,     # Number of nodes
-                          B = 2,     # Number of conditions
-                          seed = 123,verbatim = F) # Seed for reproducibility
+# Setting the working directory (modify this to your local directory)
+setwd("your/working/directory")
 
-# View the structure of the simulated data
-str(simulated_data$data)
+# Running the simulation with specific parameters
+a <- sim.rgm(p=87, B=13, n=346, mcmc_iter = 100, seed=1234)
 
+# Generating a diagnostic plot
+plot(a$diagnostic, type="l")
+
+# Fitting the model and measuring the performance
+system.time(res <- rgm(a$data, X=a$X, iter=10000))
+
+# Saving the results
+save.image("SimRes_p87.RData")
+```
+
+
+This plot shows the estimated theta values over iterations. The horizontal line represents the true beta value, providing a visual comparison of the estimated values against the known standard. This is essential for understanding the model's accuracy.
+
+
+# Detailed Plot Analysis
+
+This section provides an in-depth analysis of the simulation results using various plots. We will interpret the plots to understand the model's behavior and accuracy.
+
+## Plotting Sample Theta
+
+```{r load, echo=FALSE}
+load("~/Library/CloudStorage/Dropbox/Pancho/06 - rgm/SimRes_p87.RData")
+
+```
+
+
+
+```{r plot-sample-theta, echo=TRUE}
+#Extracting data from simulation object
+alpha.true<-a$alpha
+beta.true<-a$theta
+cloc.true<-a$loc
+G.true<-a$G
+data<-a$data
+X<-a$X
+
+i<-1
+plot(res$sample.theta[i,],type="l")
+abline(h=beta.true[i])
 ```
 
 
 
 
 ```{r}
-# Simple visualization or summary of the simulated data
-# Here we can just print a summary of the first condition
-print(summary(simulated_data$data[[1]]))
+#Extracting samples after burnin
+iter<-ncol(res$sample.alpha)
+iter
+burn<-floor(0.75*iter)
+sample.graphs<-res$sample.graphs[,,-(1:burn)]
+sample.cloc<-res$sample.loc[,,-(1:burn)]
+sample.alpha<-res$sample.alpha[,-(1:burn)]
+sample.beta<-res$sample.theta[,-(1:burn)]
+post.pi<-res$sample.pi[,,-(1:burn)]
+probit.pi<-res$pi.probit[,,-(1:burn)]
 
-# Optionally, visualize the graph of the first condition
-# This requires the igraph package for visualization
-library(igraph)
-graph1 <- graph_from_adjacency_matrix(simulated_data$G[ , , 1])
-plot(graph1)
+#Applying rotation of latent coordinates
+hlp<-array(apply(sample.cloc,3,rot),dim=dim(sample.cloc))
+sample.cloc<-hlp
 ```
