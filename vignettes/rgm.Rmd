@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 
 
-This vignette is designed to guide users through the process of running an experiment using the RGM package and subsequently analyzing the results. We will start by showcasing the code necessary for conducting the experiment, and then proceed to a detailed analysis of the results using pre-computed data. The focus will be on interpreting various plots generated from the experiment, providing insights into the performance and accuracy of the RGM package.
+This vignette it is designed to guide users through the process of running an experiment using the RGM package and subsequently analyzing the results. We will start by showcasing the code necessary for conducting the experiment, and then proceed to a detailed analysis of the results using pre-computed data. The focus will be on interpreting various plots generated from the experiment, providing insights into the performance and accuracy of the RGM package.
 
 
 # Running the Experiment
