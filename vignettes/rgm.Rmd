@@ -14,20 +14,27 @@ knitr::opts_chunk$set(
 )
 ```
 
+This vignette is designed to guide users through the process of simulating data and then running an experiment with the RGM package. We'll start by demonstrating how to simulate data, which is a crucial preliminary step. Following this, we'll showcase how to run the estimation process on the simulated data. The focus will be on interpreting various plots generated from the experiment, providing insights into the performance and accuracy of the RGM package.
+
+# Simulating Data
+
+The first step in our analysis is to simulate data, which forms the basis for our subsequent experiment. The RGM package offers functionalities for simulating complex network data, which we will utilize here.
+
+The initial step involves simulating network data using the RGM package. This process sets the stage for our experiment by generating data that mimics real-world complex network structures.
 
 
-This vignette it is designed to guide users through the process of running an experiment using the RGM package and subsequently analyzing the results. We will start by showcasing the code necessary for conducting the experiment, and then proceed to a detailed analysis of the results using pre-computed data. The focus will be on interpreting various plots generated from the experiment, providing insights into the performance and accuracy of the RGM package.
-
-
-# Running the Experiment
-
-The following R code demonstrates how to set up and run the simulation experiment using the RGM package. Note that due to the extensive computation time required, this code is not executed in this vignette. However, you can run it in your local R environment to replicate the experiment.
-
-```{r run-experiment, eval=FALSE}
+```{r simulation, eval=FALSE}
 # Running the simulation with specific parameters
 a <- sim.rgm(p=87, B=13, n=346, mcmc_iter = 100, seed=1234)
+```
 
-# Fitting the model and measuring the performance
+
+Once we have our simulated data, the next phase is to apply the RGM model to this data. This step involves estimating the network structure and relationships from the data we generated.
+
+
+```{r run-experiment, eval=FALSE}
+
+# Fitting the model
 res <- rgm(a$data, X=a$X, iter=10000)
 
 ```
@@ -64,12 +71,25 @@ suppressPackageStartupMessages(library(pROC))
 
 ps = post_processing_rgm(a,res)
 
-ps$rgm_recovery
-ps$roc_plot
-ps$estimation_of_alpha
-ps$posterior_distribution
-ps$beta_convergence
 ```
 
+```{r rgm_recovery, echo=FALSE, warning=FALSE}
+ps$rgm_recovery
+```
 
+```{r roc_plot, echo=FALSE, warning=FALSE}
+ps$roc_plot
+```
+
+```{r estimation_of_alpha, echo=FALSE, warning=FALSE}
+ps$estimation_of_alpha
+```
+
+```{r posterior_distribution, echo=FALSE, warning=FALSE}
+ps$posterior_distribution
+```
+
+```{r beta_convergence, echo=FALSE, warning=FALSE}
+ps$beta_convergence
+```
 

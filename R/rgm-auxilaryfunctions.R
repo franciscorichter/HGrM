@@ -113,7 +113,7 @@ post_processing_rgm <- function(simulated_data,results){
 
   # Create the ggplot
   estimation_of_alpha = ggplot(data_to_plot, aes(x = true_alpha, y = est_alpha, color = environment)) +
-    geom_point(size = 2, shape = 15) +
+    geom_point(size = 4, shape = 15) +
     geom_abline(intercept = 0, slope = 1, lwd = 2) +
     scale_color_manual(values = col_vector) +
     labs(x = expression(paste("True ", alpha)),
