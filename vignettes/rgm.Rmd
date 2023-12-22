@@ -24,37 +24,36 @@ This vignette it is designed to guide users through the process of running an ex
 The following R code demonstrates how to set up and run the simulation experiment using the RGM package. Note that due to the extensive computation time required, this code is not executed in this vignette. However, you can run it in your local R environment to replicate the experiment.
 
 ```{r run-experiment, eval=FALSE}
-
-
-# Setting the working directory (modify this to your local directory)
-setwd("your/working/directory")
-
 # Running the simulation with specific parameters
 a <- sim.rgm(p=87, B=13, n=346, mcmc_iter = 100, seed=1234)
 
-# Generating a diagnostic plot
-plot(a$diagnostic, type="l")
-
 # Fitting the model and measuring the performance
-system.time(res <- rgm(a$data, X=a$X, iter=10000))
+res <- rgm(a$data, X=a$X, iter=10000)
 
 # Saving the results
 save.image("SimRes_p87.RData")
 ```
 
 
-This plot shows the estimated theta values over iterations. The horizontal line represents the true beta value, providing a visual comparison of the estimated values against the known standard. This is essential for understanding the model's accuracy.
+
 
 
 # Detailed Plot Analysis
 
 This section provides an in-depth analysis of the simulation results using various plots. We will interpret the plots to understand the model's behavior and accuracy.
 
+\begin{equation}
+\label{eq:latentprobit}
+P({G_{j_1,j_2}}^{(k)}=1~|~G_{j_1,j_2}^{(-k)}, \Theta, w)= 
+ \Phi\Big(\alpha_k+{w_{j_1,j_2}}^t    \beta+\mathbf{c}_k^t\sum_{k' \ne k}\mathbf{c}_{k'}1_{\{{G_{j_1,j_2}}^{(k')}=1\}}\Big),
+\end{equation}
+
+
+
 ## Plotting Sample Theta
 
 ```{r load, echo=FALSE}
 load("~/Library/CloudStorage/Dropbox/Pancho/06 - rgm/SimRes_p87.RData")
-
 ```
 
 
