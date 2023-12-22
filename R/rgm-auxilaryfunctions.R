@@ -132,7 +132,7 @@ post_processing_rgm <- function(simulated_data,results){
   # Create a small data frame for the true and estimated lines
   lines_data <- data.frame(
     value = c(a$theta, beta.est[1]),
-    label = c("True", "Estimation")
+    label = c("True", "Estimated")
   )
 
   posterior_distribution = ggplot() +
@@ -153,7 +153,7 @@ post_processing_rgm <- function(simulated_data,results){
     geom_line(aes(x = iteration, y = beta)) +
     theme_bw() +
     geom_hline(yintercept = a$theta) +
-    labs(title = "Beta Convergence Over Iterations")
+    labs(title = "Trace plot of beta across MCMC Iterations")
 
 
   postpi.mean <- apply(post.pi, c(1, 2), mean)
