@@ -27,7 +27,15 @@ rot<-function(loc){
   return(new.loc)
 }
 
-
+#' Tpost_processing_rgm
+#'
+#' Post-processing function
+#'
+#' @param simulated_data Description of the first parameter.
+#' @param results Description of the second parameter.
+#' @return Description of the return value.
+#' @export
+#'
 post_processing_rgm <- function(simulated_data,results){
   ## Data .  Extracting data from simulation object
   a = simulated_data
