@@ -156,10 +156,34 @@ post_processing_rgm <- function(simulated_data,results){
     labs(title = "Beta Convergence Over Iterations")
 
 
+  postpi.mean <- apply(post.pi, c(1, 2), mean)
+  predictor <- postpi.mean
+  response <- G.true
+
+  roc_data <- lapply(1:B, function(j) {
+    roc_obj <- pROC::roc(response = response[, j], predictor = predictor[, j], levels = c(0, 1), direction = "<")
+    data.frame(
+      specificity = 1 - roc_obj$specificities,
+      sensitivity = roc_obj$sensitivities,
+      environment = j
+    )
+  })
+
+  roc_data <- do.call(rbind, roc_data)
+
+
+  roc = ggplot(roc_data, aes(x = specificity, y = sensitivity, color = as.factor(environment))) +
+    geom_line(size = 1) +
+    scale_color_manual(values = col_vector) +
+    labs(title = "Graph Recovery", x = "Specificity", y = "Sensitivity", color = "Environment") +
+    theme_minimal() +
+    theme(legend.position = "right")
+
+
   list(rgm_recovery=rgm_recovery,
        estimation_of_alpha = estimation_of_alpha,
        posterior_distribution=posterior_distribution,
-       beta_convergence = beta_convergence)
+       beta_convergence = beta_convergence,roc=roc)
 }
 
 
