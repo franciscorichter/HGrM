@@ -41,7 +41,7 @@ post_processing_rgm <- function(simulated_data,results){
   ## Estimation
   iter<-ncol(res$sample.alpha)
   #Extracting samples after burnin
-  burn<-floor(0.5*iter)
+  burn<-floor(0.75*iter)
   sample.graphs<-res$sample.graphs[,,-(1:burn)]
   sample.cloc<-res$sample.loc[,,-(1:burn)]
   sample.alpha<-res$sample.alpha[,-(1:burn)]
@@ -180,11 +180,49 @@ post_processing_rgm <- function(simulated_data,results){
     theme(legend.position = "right")
 
 
-  list(rgm_recovery=rgm_recovery,
-       estimation_of_alpha = estimation_of_alpha,
-       posterior_distribution=posterior_distribution,
-       beta_convergence = beta_convergence,
-       roc_plot=roc_plot)
+  #AUC values
+  a<-NULL
+  for(j in 1:B)
+  {
+    a[j]<-as.numeric(auc(response = response[,j], predictor = predictor[,j], levels = c(0, 1),direction="<"))
+  }
+
+  #Heatmap of posterior edge probabilities for each environment (blue 0, red 1)
+  colnames(postpi.mean)<-as.character(1:B)
+  dat.sm<-as.matrix(postpi.mean)
+
+
+  # Perform hierarchical clustering on both rows (edges) and columns (environments)
+  row_dend <- as.dendrogram(hclust(dist(dat.sm)))
+  col_dend <- as.dendrogram(hclust(dist(t(dat.sm))))
+
+  # Rearrange data according to the clustering
+  ordered_dat.sm <- dat.sm[order.dendrogram(row_dend), order.dendrogram(col_dend)]
+
+  # Reshape the matrix into a long format
+  long_dat <- reshape2::melt(ordered_dat.sm)
+  long_dat$Var1 <- as.factor(long_dat$Var1) # Environments
+  long_dat$Var2 <- as.factor(long_dat$Var2) # Edges
+
+  # Create the heatmap using ggplot2
+  gg_heatmap <- ggplot(long_dat, aes(x = Var1, y = Var2, fill = value)) +
+    geom_tile() +
+    scale_fill_gradient2(low = "blue", mid = "white", high = "red",
+                         midpoint = 0.5, # Adjust based on your data range
+                         limits = c(0, 1)) +
+    theme_minimal() +
+    theme(axis.text.x = element_blank(),  # Remove x-axis text
+          axis.text.y = element_text(angle = 45, hjust = 1)) +
+    labs(x = "Edge", y = "Environment", fill = "Posterior Probability")
+
+
+    # Return the list including the ggplot2 heatmap
+    list(rgm_recovery = rgm_recovery,
+         estimation_of_alpha = estimation_of_alpha,
+         posterior_distribution = posterior_distribution,
+         beta_convergence = beta_convergence,
+         roc_plot = roc_plot,
+         edge_prob = gg_heatmap)
 }
 
 
