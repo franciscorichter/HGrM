@@ -30,15 +30,9 @@ a <- sim.rgm(p=87, B=13, n=346, mcmc_iter = 100, seed=1234)
 # Fitting the model and measuring the performance
 res <- rgm(a$data, X=a$X, iter=10000)
 
-# Saving the results
-save.image("SimRes_p87.RData")
 ```
 
 
-
-
-
-# Detailed Plot Analysis
 
 This section provides an in-depth analysis of the simulation results using various plots. We will interpret the plots to understand the model's behavior and accuracy.
 
@@ -53,157 +47,29 @@ P({G_{j_1,j_2}}^{(k)}=1~|~G_{j_1,j_2}^{(-k)}, \Theta, w)=
 ## Plotting Sample Theta
 
 ```{r load, echo=FALSE}
-load("~/Library/CloudStorage/Dropbox/Pancho/06 - rgm/SimRes_p87.RData")
+setwd("~/Library/CloudStorage/Dropbox/MultipleBDgraph/package_cpp/HGrM/HGrM/vignettes")
+load("SimRes_p87.RData")
+res = smaller_res
 ```
 
 
 
-```{r plot-sample-theta, echo=TRUE}
+```{r plot-sample-theta, echo=FALSE, warning=FALSE}
 # Loading the RGM package
-library(rgm)
+suppressPackageStartupMessages(library(rgm))
 
-#Extracting data from simulation object
-alpha.true<-a$alpha
-beta.true<-a$theta
-cloc.true<-a$loc
-G.true<-a$G
-data<-a$data
-X<-a$X
+suppressPackageStartupMessages(library(ggplot2))
 
-i<-1
-plot(res$sample.theta[i,],type="l")
-abline(h=beta.true[i])
+suppressPackageStartupMessages(library(pROC))
+
+ps = post_processing_rgm(a,res)
+
+ps$rgm_recovery
+ps$roc_plot
+ps$estimation_of_alpha
+ps$posterior_distribution
+ps$beta_convergence
 ```
 
 
-
-
-```{r}
-#Extracting samples after burnin
-iter<-ncol(res$sample.alpha)
-iter
-burn<-floor(0.75*iter)
-sample.graphs<-res$sample.graphs[,,-(1:burn)]
-sample.cloc<-res$sample.loc[,,-(1:burn)]
-sample.alpha<-res$sample.alpha[,-(1:burn)]
-sample.beta<-res$sample.theta[,-(1:burn)]
-post.pi<-res$sample.pi[,,-(1:burn)]
-probit.pi<-res$pi.probit[,,-(1:burn)]
-
-#Applying rotation of latent coordinates
-hlp<-array(apply(sample.cloc,3,rot),dim=dim(sample.cloc))
-sample.cloc<-hlp
-```
-
-Mean posterior estimates of the parameters
-
-```{r}
-cloc.est<-apply(sample.cloc,c(1,2),mean)
-alpha.est<-apply(sample.alpha,1,mean)
-sample.beta<-t(as.matrix(sample.beta))
-beta.est<-apply(sample.beta,1,mean)
-beta.est
-```
-
-
-```{r}
-#Calculating the true edge probabilities (associated to the true graph and true parameters)
-Pi.true<-G.true
-dist.cond<-G.true
-B<-ncol(G.true)
-p<-ncol(data[[1]])
-m <- matrix(1:p, ncol = p, nrow = p)
-e1 <- t(m)[lower.tri(m)]
-e2 <- m[lower.tri(m)]
-for(b in 1:B)
-{
-  dist.cond[,b]<-apply(G.true,1,function(g,cloc,b){crossprod(apply(cloc*g,2,sum)-cloc[b,]*g[b],cloc[b,])},cloc=cloc.true,b=b)
-  for (i in 2:p){
-    for (j in 1:(i-1)){
-      ind<-e1==j & e2==i
-      Pi.true[ind,b]<-pnorm(alpha.true[b]+dist.cond[ind,b]+X[ind,]%*%beta.true)
-    }
-  }}
-```
-
-
-
-```{r}
-
-#Comparing the true edge probabilities with those estimated by the latent probit model, for each environment
-Pi.mean<-apply(probit.pi,c(1,2),mean)
-col_vector<-c('#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#f032e6', '#fabebe', '#008080',  '#000000', "#00FFFFFF","#80FF00FF","#FFFF00FF")
-col_vector<-col_vector[1:B]
-col.rep<-rep(col_vector,each=nrow(Pi.mean))
-par(mar=c(4, 4, 3, 3)+1,mgp=c(2.5, 1, 0))
-plot(c(Pi.true),c(Pi.mean),xlab="true probit",ylab="estimated probit", main="Random Graph Model Recovery",cex.lab=1.5,cex.main=2,xlim=c(0,1),ylim=c(0,1),col=col.rep,pch=16)
-abline(0,1,lwd=3)
-legend("bottomleft",as.character(1:B),col=col_vector,pch=16, inset=c(-0.14,0.98), xpd=TRUE, horiz=TRUE, bty="n")
-```
-
-
-```{r}
-#Comparing the true alphas with the estimated ones (i.e., checking whether the sparsity levels of the environment-specific graphs are correctly estimated)
-
-par(mar=c(5.1,4.3,4.1,2.1))
-plot(alpha.true,alpha.est, xlab=expression(paste("true ",alpha)), ylab=expression(paste("posterior mean ",alpha)),cex.lab=1.5, main=expression(paste("Estimation of ",alpha)),cex.main=2,pch=15,cex=2)
-abline(0,1)
-
-```
-
-
-
-```{r}
-#Plotting the posterior distribution of the beta parameter and comparing with the true value (vertical line)
-plot(sample.beta[1,],type="l")
-
-hist(sample.beta[1,],xlab=expression(beta),main=expression(paste(beta," posterior")),cex.lab=1.5,freq=F,ylab="",cex.main=2)
-abline(v=beta.true[1],col="green",lwd=4)
-abline(v=beta.est[1],col="red",lwd=4)
-legend("topleft",c("true","mean"),lty=1,col=c("green","red"),bty="n",lwd=4,cex=1.6)
-```
-
-
-```{r}
-
-#ROC curves comparing the true graphs with the estimated ones, by setting cutoffs on the estimated posterior edge probabilities
-postpi.mean<-apply(post.pi,c(1,2),mean)
-predictor <- postpi.mean
-response<-G.true
-col_vector<-c('#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#f032e6', '#fabebe', '#008080',  '#000000', "#00FFFFFF","#80FF00FF","#FFFF00FF")
-library(pROC)
-
-a<-pROC::roc(response = response[,1], predictor = predictor[,1], levels = c(0, 1),direction="<")
-plot.roc(a,ylim=c(0,1),xlim=c(1,0),main="Graph Recovery",cex.lab=1.5,cex.main=2, mar=c(4, 4, 3, 3)+1,xlab="specificity",ylab="sensitivity")
-for(j in 1:B)
-{
-  b<-pROC::roc(response = response[,j], predictor = predictor[,j], levels = c(0, 1),direction="<")
-  plot.roc(b,add=TRUE,col=col_vector[j],lwd=3)
-}
-legend("bottomleft",as.character(1:B),col=col_vector,pch=16, inset=c(-0.08,0.98), xpd=TRUE, horiz=TRUE, bty="n")
-
-```
-
-
-
-```{r}
-#AUC values
-a<-NULL
-for(j in 1:B)
-{
-  a[j]<-as.numeric(auc(response = response[,j], predictor = predictor[,j], levels = c(0, 1),direction="<"))
-}
-
-a
-mean(a)
-
-#Heatmap of posterior edge probabilities for each environment (blue 0, red 1) 
-colnames(postpi.mean)<-as.character(1:B)
-dat.sm<-as.matrix(postpi.mean)
-library("gplots")
-a<-heatmap.2(dat.sm, scale = "none", col = colorpanel(100,"blue","white","red"), 
-             trace = "none", density.info = "none",margins=c(6,4),labRow=FALSE)
-
-
-```
 

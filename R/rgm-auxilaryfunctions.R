@@ -41,7 +41,7 @@ post_processing_rgm <- function(simulated_data,results){
   ## Estimation
   iter<-ncol(res$sample.alpha)
   #Extracting samples after burnin
-  burn<-floor(0.75*iter)
+  burn<-floor(0.5*iter)
   sample.graphs<-res$sample.graphs[,,-(1:burn)]
   sample.cloc<-res$sample.loc[,,-(1:burn)]
   sample.alpha<-res$sample.alpha[,-(1:burn)]
@@ -172,7 +172,7 @@ post_processing_rgm <- function(simulated_data,results){
   roc_data <- do.call(rbind, roc_data)
 
 
-  roc = ggplot(roc_data, aes(x = specificity, y = sensitivity, color = as.factor(environment))) +
+  roc_plot = ggplot(roc_data, aes(x = specificity, y = sensitivity, color = as.factor(environment))) +
     geom_line(size = 1) +
     scale_color_manual(values = col_vector) +
     labs(title = "Graph Recovery", x = "Specificity", y = "Sensitivity", color = "Environment") +
@@ -183,7 +183,8 @@ post_processing_rgm <- function(simulated_data,results){
   list(rgm_recovery=rgm_recovery,
        estimation_of_alpha = estimation_of_alpha,
        posterior_distribution=posterior_distribution,
-       beta_convergence = beta_convergence,roc=roc)
+       beta_convergence = beta_convergence,
+       roc_plot=roc_plot)
 }
 
 
