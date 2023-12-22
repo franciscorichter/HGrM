@@ -5,7 +5,7 @@
 ## Key Features
 
 - **Joint Inference Across Multiple Environments**: `rgm` enables simultaneous analysis of multivariate data from diverse environments, providing a comprehensive understanding of complex network interactions.
-- **Random Graphical Modeling**: The package includes a generative model of graphs across environments to effectively handle heterogeneity and quantify structural relationships across environments.
+- **Random Graphical Modeling**: The package includes a generative model of graphs across environments to handle heterogeneity and quantify structural relationships across environments.
 - **Integration of External Covariates**: Users can incorporate external covariates at both node and interaction levels, allowing for a more complete analysis of network data.
 - **Bayesian Framework**: `rgm` uses a Bayesian approach to quantify parameter uncertainty, including uncertainty on the inferred graphs.
 
