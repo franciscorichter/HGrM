@@ -2,7 +2,7 @@
 \alias{rgm}
 \title{Random Graphical Model}
 \description{
-  The function implements Bayesian inference of a random graphical model for data across multiple environments. The random graph prior assumes that there exists an underlying 2D latent space where the conditions are located. Their vicinity in this space relates to structural similaries between the conditions. The model estimates these latent positions, the sparsity levels for each network, the regression coefficients of edge covariates associated to the propensity of two nodes ot connect (if available) and the network structures for each environment.
+  The function implements Bayesian inference of a random graphical model for multivariate data across multiple environments. The random graph prior assumes that there exists an underlying 2D latent space where the environments are located. Their vicinity in this space relates to structural similaries between the conditions. The model estimates these latent positions, the sparsity levels for each network, the regression coefficients of edge covariates associated to the propensity of two nodes ot connect (if available) and the network structures for each environment.
 }
 \usage{
   rgm(data, X=NULL, iter = 1000, burnin = 0, initial.graphs = NULL, D = 2, initial.loc = NULL, initial.alpha = NULL, initial.theta = NULL, bd.iter = 20, bd.jump = 10, method = c("ggm", "gcgm"), gcgm.dwpar = NULL)
