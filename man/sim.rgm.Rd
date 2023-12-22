@@ -1,7 +1,7 @@
 \name{sim.rgm}
 \alias{sim.rgm}
 \title{
-Simulate Data from a Random Graphical Model with Binary Edges and a Continuous Edge Covariate
+Simulate Data from a Random Graphical Model
 }
 \usage{
 sim.rgm(n = 1000, D = 2, p = 81, B = 10, seed = 123, mcmc_iter = 50, alpha = NULL, theta = NULL, loc = NULL, X = NULL) 
