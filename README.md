@@ -4,10 +4,10 @@
 
 ## Key Features
 
-- **Joint Inference Across Multiple Environments**: `rgm` enables simultaneous analysis of data from diverse environments or communities, providing a comprehensive understanding of complex network interactions.
-- **Advanced Random Graphical Modeling**: The package employs sophisticated RGM methodologies to effectively handle heterogeneity and quantify structural relationships between datasets.
-- **Integration of External Covariates**: Users can incorporate external covariates at both node and interaction levels, allowing for a more nuanced analysis of network data.
-- **Bayesian Framework**: `rgm` uses a Bayesian approach to robustly quantify parameter uncertainty, offering more reliable analytical results.
+- **Joint Inference Across Multiple Environments**: `rgm` enables simultaneous analysis of multivariate data from diverse environments, providing a comprehensive understanding of complex network interactions.
+- **Random Graphical Modeling**: The package includes a generative model of graphs across environments to effectively handle heterogeneity and quantify structural relationships across environments.
+- **Integration of External Covariates**: Users can incorporate external covariates at both node and interaction levels, allowing for a more complete analysis of network data.
+- **Bayesian Framework**: `rgm` uses a Bayesian approach to quantify parameter uncertainty, including uncertainty on the inferred graphs.
 - **Network Posterior Visualization and Analysis**: The package includes tools for visualizing and interpreting network posteriors, revealing core structures and elucidating individual differences and relationships.
 
 ## Installation
@@ -28,7 +28,7 @@ library(rgm)
 vignette("rgm")
 ```
 
-**Note**: While initially designed for microbiome analysis, `rgm` is broadly applicable across various fields requiring advanced graphical modeling of network data.
+**Note**: While initially designed for microbiome analysis, `rgm` is broadly applicable across various fields requiring advanced graphical modeling of multivariate data from multiple environments.
 
 ## Principal Reference
 
