@@ -15,7 +15,7 @@ Install the latest version of `rgm` from GitHub using the following commands in 
 
 ```R
 install.packages("devtools")
-devtools::install_github("franciscorichter/rgm")
+devtools::install_github("franciscorichter/rgm", build_vignette=TRUE)
 ```
 
 ## Usage
