@@ -7,8 +7,7 @@ sim.rgm <- function(n=346,
                     alpha=NULL,
                     theta=NULL,
                     loc=NULL,
-                    X=NULL,
-                    verbatim=TRUE) {
+                    X=NULL) {
 
   set.seed(seed)
 
@@ -47,7 +46,6 @@ sim.rgm <- function(n=346,
   Pi.true <- matrix(ncol = B, nrow = n.edge)
   sp<-NULL
   for(i in 1:mcmc_iter) {
-    if(verbatim) print(i)
     for (b in 1:B){
       # Updating condition-specific intercept
      dist.cond[,b] <- apply(G.true, 1, function(g, cloc, b) { crossprod(apply(cloc*g, 2, sum) - cloc[b,]*g[b], cloc[b,]) }, cloc = cloc.true, b = b)
@@ -71,5 +69,5 @@ sim.rgm <- function(n=346,
     data[[j]] <- BDgraph::bdgraph.sim( p = p, n = n, graph = A)$data
   }
 
-  list(data = data, X=X, loc = cloc.true, alpha = alpha.true, theta = beta.true,G=G.true,diagnostic=sp)
+  list(data = data, X=X, loc = cloc.true, alpha = alpha.true, theta = beta.true,G=G.true)
 }
