@@ -1,16 +1,17 @@
 Package: rgm
 Type: Package
 Title: Advanced Inference with Random Graphical Models
-Version: 0.0.0.9000
+Version: 1.0.0
 Authors@R: 
     c(person("Francisco", "Richter", email = "richtf@usi.ch", role = c("aut", "cre")),
       person("Veronica", "Vinciotti", email = "veronica.vinciotti@unitn.it", role = c("ctb")),
       person("Ernst", "Wit", email = "ernst.jan.camiel.wit@usi.ch", role = c("ctb")))
-Description: The 'rgm' package implements the novel Random Graphical Model (RGM) methodology for network inference from heterogeneous data across multiple environments. It allows users to model the relatedness of different environments and the linkage with external covariates at the interaction level. Incorporating Bayesian inference and Gaussian copula graphical models, 'rgm' provides tools for generating count microbiome data, quantifying uncertainty in parameter estimation, and exploring structural similarities within and across different datasets. This package is ideal for researchers interested in learning structural dependencies and their similarities in complex data environments.
+Description: The 'rgm' package implements the novel Random Graphical Model (RGM) methodology ...
 License: file LICENSE
 Encoding: UTF-8
 Depends: 
-    R (>= 3.5.0),
+    R (>= 3.5.0)
+Imports:
     truncnorm,
     mvtnorm,
     tmvtnorm,
@@ -19,7 +20,8 @@ Depends:
     Matrix,
     MASS,
     ggplot2,
-    pROC
+    pROC,
+    Rcpp
 LinkingTo: Rcpp
 SystemRequirements: C++14
 RoxygenNote: 7.2.1
@@ -28,3 +30,4 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+
