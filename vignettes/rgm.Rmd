@@ -39,7 +39,7 @@ Data from the model above, with $n=346$ observations for each environment, is si
 
 ```{r simulation, eval=FALSE}
 # Running the simulation with specific parameters
-a <- sim.rgm(p=87, B=13, n=346, mcmc_iter = 100, seed=1234)
+a <- rgm:::sim.rgm(p=27, B=5, n=146, mcmc_iter = 100, seed=1234)
 ```
 
 
@@ -51,7 +51,7 @@ Given the simulated data, the next phase is to apply the RGM model to this data.
 ```{r run-experiment, eval=FALSE}
 
 # Fitting the model
-res <- rgm(a$data, X=a$X, iter=10000)
+res <- rgm:::rgm(a$data, X=a$X, iter=10000)
 
 ```
 
@@ -96,7 +96,7 @@ We proceed with the diagnostics plots
 
 ```{r, eval=FALSE}
 
-ps = post_processing_rgm(simulated_data = a,results = res)
+ps = rgm:::post_processing_rgm(simulated_data = a,results = res)
 
 
 ```
