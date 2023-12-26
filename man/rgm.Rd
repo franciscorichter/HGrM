@@ -5,7 +5,11 @@
   The function implements Bayesian inference of a random graphical model for multivariate data across multiple environments. The random graph prior assumes that there exists an underlying 2D latent space where the environments are located. Their vicinity in this space relates to structural similaries between the conditions. The model estimates these latent positions, the sparsity levels for each network, the regression coefficients of edge covariates associated to the propensity of two nodes ot connect (if available) and the network structures for each environment.
 }
 \usage{
-  rgm(data, X=NULL, iter = 1000, burnin = 0, initial.graphs = NULL, D = 2, initial.loc = NULL, initial.alpha = NULL, initial.theta = NULL, bd.iter = 20, bd.jump = 10, method = c("ggm", "gcgm"), gcgm.dwpar = NULL)
+  rgm(data, X=NULL, iter = 1000, burnin = 0,
+  initial.graphs = NULL, D = 2, initial.loc = NULL,
+  initial.alpha = NULL, initial.theta = NULL,
+  bd.iter = 20, bd.jump = 10,
+  method = c("ggm", "gcgm"), gcgm.dwpar = NULL)
 }
 \arguments{
   \item{data}{a list of B multivariate datasets measuring p variables across B number of environments.}
@@ -38,20 +42,13 @@ The function first initializes the latent positions, intercepts, regression coef
   \item{pi.probit}{an n.edge x B x (iter - burnin) array of the estimated probit probabilities of the edge connections in each network.}
 }
 \examples{
-#simulate data
-a<-sim.rgm(mcmc_iter = 10)
+##simulate data
+#a<-sim.rgm(mcmc_iter = 10)
 
-#run inference
-results<-rgm(a$data,X=a$X,iter=100)
+##run inference
+#rgm(a$data,X=a$X,iter=100)
 
-#extract the posterior samples
-sample.alpha <- results$sample.alpha
-sample.beta <- results$sample.theta
-sample.loc <- results$sample.loc
-sample.graphs <- results$sample.graphs
-sample.pi <- results$sample.pi
-sample.K <- results$sample.K
-pi.probit <- results$pi.probit
+
 }
 \author{
 Veronica Vinciotti, Ernst C. Wit and Francisco Richter

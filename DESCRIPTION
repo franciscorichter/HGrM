@@ -14,20 +14,17 @@ Depends:
 Imports:
     truncnorm,
     mvtnorm,
-    tmvtnorm,
     BDgraph,
-    huge,
-    Matrix,
     MASS,
     ggplot2,
     pROC,
-    Rcpp
+    reshape2,
+    huge
 LinkingTo: Rcpp
 SystemRequirements: C++14
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 BugReports: https://github.com/franciscorichter/rgm/issues
 Suggests: 
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-

@@ -4,7 +4,9 @@
 Simulate Data from a Random Graphical Model
 }
 \usage{
-sim.rgm(n = 1000, D = 2, p = 81, B = 10, seed = 123, mcmc_iter = 50, alpha = NULL, theta = NULL, loc = NULL, X = NULL) 
+#sim.rgm(n = 1000, D = 2, p = 81, B = 10,
+#seed = 123, mcmc_iter = 50, alpha = NULL,
+#theta = NULL, loc = NULL, X = NULL)
 }
 \arguments{
 \item{n}{The number of observations for each environment. Default is 1000.}
@@ -32,5 +34,5 @@ A list with the following elements:
 This function simulates data from a random graphical model. The graphical model is a Gaussian graphical model, with a mean zero vector and condition-specific precision matrices. The random graph model is a latent probit model, which includes condition-specific intercepts, a 2D latent space model and an edge specific covariate.
 }
 \examples{
-sim_data <- sim.rgm()
+#sim_data <- sim.rgm()
 }

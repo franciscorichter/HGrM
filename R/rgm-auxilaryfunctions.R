@@ -1,3 +1,17 @@
+#' @importFrom truncnorm rtruncnorm
+#' @importFrom MASS ginv
+#' @importFrom mvtnorm rmvnorm
+#' @importFrom ggplot2 ggplot geom_point geom_abline scale_color_manual labs theme_minimal theme geom_line geom_density geom_vline geom_hline geom_tile scale_fill_gradient2 aes
+#' @importFrom pROC roc auc
+#' @importFrom reshape2 melt
+#' @importFrom stats as.dendrogram binomial coef dist glm hclust order.dendrogram pnorm rbinom rnorm runif
+#' @importFrom utils setTxtProgressBar txtProgressBar
+#' @importFrom huge huge.select
+#' @importFrom huge huge
+#' @importFrom ggplot2 element_blank element_text theme_bw
+
+
+
 sample.data<-function(data, K, tpoints){
   B<-length(data)
   p<-ncol(data[[1]])
@@ -75,6 +89,53 @@ bpr <- function(y, X, offset = 0, theta, theta_0 = c(0, 0, 0), N_sim = 1) {
     theta_chain[t, ] <- theta
   }
 
+  return(theta_chain)
+}
+
+
+blr<-function(y,X,offset = 0, theta, theta_0=0, N_sim=1){
+  # dim of theta
+  D<- ncol(X)
+
+  # number of observations
+  n<-length(y)
+  N1<-sum(y)
+  N0<-n-N1
+
+  # Conjugate prior on the coefficients \theta ~ N(theta_0, Q_0)
+  Q_0 <- diag(10, D)
+
+  # Initialize parameters
+  z <- rep(NA, n)
+
+  # Matrix storing samples of the \theta parameter
+  theta_chain <- matrix(0, nrow = N_sim, ncol = D)
+
+  # ---------------------------------
+  # Gibbs sampling algorithm
+  # ---------------------------------
+
+  # Compute posterior variance of theta
+  prec_0 <- solve(Q_0)
+  V <- solve(prec_0 + crossprod(X, X))
+
+  for (t in 1:N_sim) {
+    # Update Mean of z
+    mu_z <- X %*% theta + offset
+    # Draw latent variable z from its full conditional: z | \theta, y, X
+    if(sum(1-y)>0)
+      z[y == 0] <- rtruncnorm(N0, mean = mu_z[y == 0], sd = 1, a = -Inf, b = 0)
+    if(sum(y)>0)
+      z[y == 1] <- rtruncnorm(N1, mean = mu_z[y == 1], sd = 1, a = 0, b = Inf)
+
+    # Compute posterior mean of theta
+    M <- V %*% (prec_0 %*% theta_0 + crossprod(X,z-offset))
+    # Draw variable \theta from its full conditional: \theta | z, X
+    theta <- c(rmvnorm(1, M, V))
+
+    # Store the \theta draws
+    theta_chain[t, ] <- theta
+  }
   return(theta_chain)
 }
 
@@ -176,16 +237,25 @@ Gmcmc<-function(G, X=NULL, iter=1000,alpha=NULL,theta=NULL,loc=NULL, burnin=0)
 }
 
 
-#' Tpost_processing_rgm
-#'
-#' Post-processing function
-#'
-#' @param simulated_data Description of the first parameter.
-#' @param results Description of the second parameter.
-#' @return Description of the return value.
-#' @export
-#'
-post_processing_rgm <- function(simulated_data,results){
+
+post_processing_rgm <- function(simulated_data,
+                                results,
+                                true_prob = NULL,
+                                est_prob = NULL,
+                                true_alpha = NULL,
+                                est_alpha = NULL,
+                                beta_value = NULL,
+                                value = NULL,
+                                label = NULL,
+                                iteration = NULL,
+                                specificity = NULL,
+                                sensitivity = NULL,
+                                Var1 = NULL,
+                                Var2 = NULL,
+                                element_blank = NULL,
+                                element_text = NULL,
+                                theme_bw = NULL,
+                                huge = NULL){
   ## Data .  Extracting data from simulation object
   a = simulated_data
   res = results
