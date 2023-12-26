@@ -70,4 +70,5 @@ sim.rgm <- function(n=346,
   }
 
   list(data = data, X=X, loc = cloc.true, alpha = alpha.true, theta = beta.true,G=G.true)
+
 }

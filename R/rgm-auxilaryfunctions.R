@@ -238,53 +238,40 @@ Gmcmc<-function(G, X=NULL, iter=1000,alpha=NULL,theta=NULL,loc=NULL, burnin=0)
 
 
 
-post_processing_rgm <- function(simulated_data,
-                                results,
-                                true_prob = NULL,
-                                est_prob = NULL,
-                                true_alpha = NULL,
-                                est_alpha = NULL,
-                                beta_value = NULL,
-                                value = NULL,
-                                label = NULL,
-                                iteration = NULL,
-                                specificity = NULL,
-                                sensitivity = NULL,
-                                Var1 = NULL,
-                                Var2 = NULL,
-                                element_blank = NULL,
-                                element_text = NULL,
-                                theme_bw = NULL,
-                                huge = NULL){
-  ## Data .  Extracting data from simulation object
+post_processing_rgm <- function(simulated_data, results) {
+  ## Data extraction from simulation object
   a = simulated_data
   res = results
-  alpha.true<-a$alpha
-  beta.true<-a$theta
-  cloc.true<-a$loc
-  G.true<-a$G
-  data<-a$data
-  X<-a$X
+  alpha.true <- a$alpha
+  beta.true <- a$theta
+  cloc.true <- a$loc
+  G.true <- a$G
+  data <- a$data
+  X <- a$X
+
+
+
   ## Estimation
-  iter<-ncol(res$sample.alpha)
-  #Extracting samples after burnin
-  burn<-floor(0.75*iter)
-  sample.graphs<-res$sample.graphs[,,-(1:burn)]
-  sample.cloc<-res$sample.loc[,,-(1:burn)]
-  sample.alpha<-res$sample.alpha[,-(1:burn)]
-  sample.beta<-res$sample.theta[,-(1:burn)]
-  post.pi<-res$sample.pi[,,-(1:burn)]
-  probit.pi<-res$pi.probit[,,-(1:burn)]
+  iter <- ncol(res$sample.alpha)
+  # Extracting samples after burnin
+  burn <- floor(0.75 * iter)
+  sample.graphs <- res$sample.graphs[, , -(1:burn)]
+  sample.cloc <- res$sample.loc[, , -(1:burn)]
+  sample.alpha <- res$sample.alpha[, -(1:burn)]
+  sample.beta <- res$sample.theta[, -(1:burn)]
+  post.pi <- res$sample.pi[, , -(1:burn)]
+  probit.pi <- res$pi.probit[, , -(1:burn)]
 
-  #Applying rotation of latent coordinates
-  hlp<-array(apply(sample.cloc,3,rot),dim=dim(sample.cloc))
-  sample.cloc<-hlp
+  # Applying rotation of latent coordinates
+  hlp <- array(apply(sample.cloc, 3, rot), dim = dim(sample.cloc))
+  sample.cloc <- hlp
 
-  #Mean posterior estimates of the parameters
-  cloc.est<-apply(sample.cloc,c(1,2),mean)
-  alpha.est<-apply(sample.alpha,1,mean)
-  sample.beta<-t(as.matrix(sample.beta))
-  beta.est<-apply(sample.beta,1,mean)
+  # Mean posterior estimates of the parameters
+  cloc.est <- apply(sample.cloc, c(1, 2), mean)
+  alpha.est <- apply(sample.alpha, 1, mean)
+  sample.beta <- t(as.matrix(sample.beta))
+  beta.est <- apply(sample.beta, 1, mean)
+
 
   #Calculating the true edge probabilities (associated to the true graph and true parameters)
   Pi.true<-G.true
@@ -306,6 +293,8 @@ post_processing_rgm <- function(simulated_data,
 
   #Comparing the true edge probabilities with those estimated by the latent probit model, for each environment
   Pi.mean<-apply(probit.pi,c(1,2),mean)
+
+  true_prob = est_prob = true_alpha = est_alpha = beta_value = value = label = iteration = specificity = sensitivity = Var1 = Var2 = NULL
 
   # Creating a data frame for ggplot
   data_to_plot <- data.frame(
