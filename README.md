@@ -1,6 +1,6 @@
 # rgm: Random Graphical Models for data from multiple environments
 
-`rgm` is an R package that implements state-of-the-art Random Graphical Models (RGM) for the analysis of complex multivariate data. It excels in handling heterogeneous data across various environments, offering a powerful tool for exploring intricate network interactions and structural relationships.
+`rgm` is an R package that implements state-of-the-art Random Graphical Models (RGMs) for the analysis of complex multivariate data. It is able to handle heterogeneous data across various environments, offering a powerful tool for exploring intricate network interactions and structural relationships.
 
 ## Key Features
 
