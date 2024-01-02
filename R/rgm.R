@@ -1,3 +1,27 @@
+#' Random Graph Model (RGM) Simulation and Analysis
+#'
+#' This function performs simulations and analysis based on a random graph model.
+#' It processes the provided data and optional covariates, performing iterative
+#' computations and returning a comprehensive set of results, including graph samples,
+#' precision matrices, and other statistical measures.
+#'
+#' @param data A list of matrices, each representing a condition's data.
+#' @param X Optional matrix of covariates; if not provided, the function will handle data without covariates (default: NULL).
+#' @param iter Integer, the number of iterations for the MCMC simulation (default: 1000).
+#' @param burnin Integer, the number of burn-in iterations for MCMC (default: 0).
+#' @param initial.graphs Optional array specifying the initial graphs for each condition (default: NULL).
+#' @param D Integer, the dimension for certain calculations (default: 2).
+#' @param initial.loc Optional matrix specifying the initial locations (default: NULL).
+#' @param initial.alpha Optional vector for initial alpha values (default: NULL).
+#' @param initial.theta Optional vector for initial theta values (default: NULL).
+#' @param bd.iter Integer, the number of iterations for BDgraph (default: 20).
+#' @param bd.jump Integer, the jump parameter for BDgraph (default: 10).
+#' @param method Character vector specifying the method to use, options are "ggm" (Gaussian Graphical Model) and "gcgm" (Gaussian Copula Graphical Model) (default: c("ggm", "gcgm")).
+#' @param gcgm.dwpar Optional list of parameters for the Gaussian Copula Graphical Model (default: NULL).
+#'
+#' @return A list containing various elements including sample alpha, sample locations, sample precision matrices (K), sample graphs, and other relevant results. The structure of the list varies based on whether covariates (X) are provided or not.
+#' @export
+#'
 rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.loc=NULL, initial.alpha=NULL, initial.theta=NULL, bd.iter=20,bd.jump=10, method=c("ggm","gcgm"), gcgm.dwpar=NULL)
 {
   p<-ncol(data[[1]]) #number of nodes

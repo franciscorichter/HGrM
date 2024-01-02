@@ -1,3 +1,25 @@
+#' Simulate Random Graph Model (RGM)
+#'
+#' This function simulates a random graph model based on the given parameters.
+#' It performs various computations and returns a list containing the simulated data,
+#' parameters, and other relevant results.
+#'
+#' @param n An integer, the number of nodes in the graph (default: 346).
+#' @param D An integer, representing the dimension (default: 2).
+#' @param p An integer, specifying the number of parameters (default: 87).
+#' @param B An integer, the number of conditions (default: 13).
+#' @param seed An integer, the seed for random number generation (default: 123).
+#' @param mcmc_iter An integer, the number of MCMC iterations (default: 100).
+#' @param alpha Numeric vector or NULL, initial values for alpha (default: NULL).
+#' @param theta Numeric or NULL, initial value for theta (default: NULL).
+#' @param loc Matrix or NULL, initial location values (default: NULL).
+#' @param X Matrix or NULL, covariate data (default: NULL).
+#'
+#' @return A list containing the simulated data, X, loc, alpha, theta, and G.
+#' @export
+#'
+#' @examples
+#' sim_result <- sim.rgm(n = 100, D = 2, p = 50, B = 10)
 sim.rgm <- function(n=346,
                     D = 2,
                     p = 87,
