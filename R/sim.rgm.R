@@ -88,7 +88,7 @@ sim.rgm <- function(n=346,
     A <- matrix(0, nrow = p, ncol = p)
     A[lower.tri(A)] <- G.true[,j]
     A <- A + t(A)
-    data[[j]] <- BDgraph::bdgraph.sim( p = p, n = n, graph = A)$data
+    data[[j]] <- suppressWarnings(BDgraph::bdgraph.sim( p = p, n = n, graph = A)$data)
   }
 
   list(data = data, X=X, loc = cloc.true, alpha = alpha.true, theta = beta.true,G=G.true)

@@ -1,13 +1,13 @@
 Package: rgm
 Type: Package
 Title: Advanced Inference with Random Graphical Models
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: 
     c(person("Francisco", "Richter", email = "richtf@usi.ch", role = c("aut", "cre")),
       person("Veronica", "Vinciotti", email = "veronica.vinciotti@unitn.it", role = c("ctb")),
       person("Ernst", "Wit", email = "ernst.jan.camiel.wit@usi.ch", role = c("ctb")))
-Description: The 'rgm' package implements the novel Random Graphical Model (RGM) methodology ...
-License: file LICENSE
+Description: Implements state-of-the-art Random Graphical Models (RGMs) for multivariate data analysis across multiple environments, offering tools for exploring network interactions and structural relationships. Capabilities include joint inference across environments, integration of external covariates, and a Bayesian framework for uncertainty quantification. Applicable in various fields, including microbiome analysis. Methods based on Vinciotti, V., Wit, E., & Richter, F. (2023). "Random Graphical Model of Microbiome Interactions in Related Environments." <arXiv:2304.01956>.
+License: MIT + file LICENSE
 Encoding: UTF-8
 Depends: 
     R (>= 3.5.0)
@@ -21,7 +21,6 @@ Imports:
     reshape2,
     huge
 LinkingTo: Rcpp
-SystemRequirements: C++14
 RoxygenNote: 7.2.3
 BugReports: https://github.com/franciscorichter/rgm/issues
 Suggests: 

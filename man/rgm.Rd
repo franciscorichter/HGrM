@@ -42,14 +42,15 @@ The function first initializes the latent positions, intercepts, regression coef
   \item{pi.probit}{an n.edge x B x (iter - burnin) array of the estimated probit probabilities of the edge connections in each network.}
 }
 \examples{
-##simulate data
-#a<-sim.rgm(mcmc_iter = 10)
+\dontrun{
+  # simulate data
+  sim_data <- sim.rgm(n = 1000, D = 2, p = 81, B = 10)
 
-##run inference
-#rgm(a$data,X=a$X,iter=100)
-
-
+  # run inference
+  rgm(sim_data$data,X=sim_data$X,iter=1000)
 }
+}
+
 \author{
 Veronica Vinciotti, Ernst C. Wit and Francisco Richter
 }
