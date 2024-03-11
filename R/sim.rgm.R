@@ -35,8 +35,8 @@ sim.rgm <- function(n=346,
 
   # Simulating latent space model
   if(is.null(loc)){
-    cond.loc1 <- rnorm(B, 0, 0.3)
-    cond.loc2 <- rnorm(B, 0, 0.3)
+    cond.loc1 <- stats::rnorm(B, 0, 0.3)
+    cond.loc2 <- stats::rnorm(B, 0, 0.3)
     cloc.true <- cbind(cond.loc1, cond.loc2)
   }  else
     cloc.true<-loc
@@ -44,14 +44,14 @@ sim.rgm <- function(n=346,
   # Simulating one covariate
   n.edge <- p*(p-1)/2
   if(is.null(X)){
-    X <- runif(n.edge, -0.5, 0.5)
+    X <- stats::runif(n.edge, -0.5, 0.5)
     X <- as.matrix(X)
   } else
     X<-as.matrix(X)
 
   # True parameters
   if(is.null(alpha))
-    alpha.true <- rnorm(B, -2)
+    alpha.true <- stats::rnorm(B, -2)
   else
     alpha.true<-alpha
   if(is.null(theta))
@@ -74,10 +74,10 @@ sim.rgm <- function(n=346,
      for (k in 2:p){
       for (j in 1:(k-1)){
         ind<-e1==j & e2==k
-        Pi.true[ind,b]<-pnorm(alpha.true[b]+dist.cond[ind,b]+X[ind,]%*%beta.true)
+        Pi.true[ind,b]<-stats::pnorm(alpha.true[b]+dist.cond[ind,b]+X[ind,]%*%beta.true)
       }
     }
-    G.true[,b] = rbinom(n.edge,1,Pi.true[,b])
+    G.true[,b] = stats::rbinom(n.edge,1,Pi.true[,b])
   }
   sp<-c(sp,sum(G.true))
 }
@@ -116,7 +116,7 @@ custom_graph_sim <- function(p, n, graph) {
   if (is.null(sigma)) {
     # Adjust for zero variance if necessary
     if (any(apply(G, 1, stats::var) == 0)) {
-      G <- G + matrix(runif(length(G)) * 1e-10, nrow = nrow(G), ncol = ncol(G))
+      G <- G + matrix(stats::runif(length(G)) * 1e-10, nrow = nrow(G), ncol = ncol(G))
     }
     # Compute sigma and ensure it's symmetric
     cor_G = stats::cor(G) + diag(1e-10, p)
@@ -143,7 +143,7 @@ custom_graph_sim <- function(p, n, graph) {
     }
     chol_sigma = chol(sigma)
 
-    z = matrix(rnorm(n * p), nrow = p, ncol = n)
+    z = matrix(stats::rnorm(n * p), nrow = p, ncol = n)
 
     # The resulting matrix from the multiplication is p x n
     # We need to transpose it to get n x p

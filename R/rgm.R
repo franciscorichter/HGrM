@@ -42,7 +42,7 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
   {
     for(i in 1:B)
     {
-      g<-huge.select(huge(as.matrix(data[[i]]),method="glasso",verbose = FALSE),criterion="stars",verbose = FALSE)$refit
+      g<-huge::huge.select(huge::huge(as.matrix(data[[i]]),method="glasso",verbose = FALSE),criterion="stars",verbose = FALSE)$refit
       sample.graphs[,i,1]<-g[lt]
     }
   }
@@ -53,7 +53,7 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
   sample.alpha<-matrix(0,B,iter)
 
   if(is.null(initial.loc))
-    sample.cloc[,,1]<-matrix(rnorm(B*D),ncol=D)
+    sample.cloc[,,1]<-matrix(stats::rnorm(B*D),ncol=D)
   else
     sample.cloc[,,1]<-initial.loc
 
@@ -66,7 +66,7 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
     {
       y<-as.vector(sample.graphs[,,1])
       X<-apply(Z,2,rep,B)
-      sample.beta[,1]<-coef(glm(y~X, family=binomial(link = "probit")))[-1]
+      sample.beta[,1]<-stats::coef(stats::glm(y~X, family=stats::binomial(link = "probit")))[-1]
     }
     if(!is.null(initial.theta))
       sample.beta[,1]<-initial.theta
@@ -105,10 +105,10 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
     }
   }
 
-  pb <- txtProgressBar(min = 0, max = (iter-1), style = 3)
+  pb <- utils::txtProgressBar(min = 0, max = (iter-1), style = 3)
   for (k in 1: (iter-1))
   {
-    setTxtProgressBar(pb = pb, value = k,title = "Performing MCMC iterations")
+    utils::setTxtProgressBar(pb = pb, value = k,title = "Performing MCMC iterations")
 
     # update data if the Gaussian Copula GM (gcgm) is selected
     if (method[1]=="gcgm"){
@@ -139,13 +139,13 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
           ind<-e1==j & e2==i
           if(is.null(Z))
             {
-            Pi[ind,b]<-pnorm(alpha[b]+dist.cond[ind,b])
-            pi.probit[ind,b,k+1]<-pnorm(alpha[b]+dist.cond[ind,b])
+            Pi[ind,b]<-stats::pnorm(alpha[b]+dist.cond[ind,b])
+            pi.probit[ind,b,k+1]<-stats::pnorm(alpha[b]+dist.cond[ind,b])
             }
           else
             {
-            Pi[ind,b]<-pnorm(alpha[b]+dist.cond[ind,b]+Z[ind,]%*%beta)
-            pi.probit[ind,b,k+1]<-pnorm(alpha[b]+dist.cond[ind,b]+Z[ind,]%*%beta)
+            Pi[ind,b]<-stats::pnorm(alpha[b]+dist.cond[ind,b]+Z[ind,]%*%beta)
+            pi.probit[ind,b,k+1]<-stats::pnorm(alpha[b]+dist.cond[ind,b]+Z[ind,]%*%beta)
             }
         }
       }

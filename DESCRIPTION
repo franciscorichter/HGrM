@@ -13,15 +13,11 @@ Depends:
     R (>= 3.5.0)
 Imports:
     truncnorm,
-    mvtnorm,
     BDgraph,
     MASS,
-    ggplot2,
-    pROC,
-    reshape2,
     huge
 LinkingTo: Rcpp
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.0
 BugReports: https://github.com/franciscorichter/rgm/issues
 Suggests: 
     knitr,
