@@ -11,20 +11,19 @@
 #' @importFrom ggplot2 element_blank element_text theme_bw
 
 
-
-sample.data<-function(data, K, tpoints){
-  B<-length(data)
-  p<-ncol(data[[1]])
-  dat<-vector(mode="list", length=B)
-  for (i in 1:B){
-    for (j in 1:p){
-      S<-solve(K[[i]])
-      S22i<-solve(S[-j,-j])
-      S12<-S[j,-j]
-      S11<-S[j,j]
-      mu.j<-t(S12)%*%S22i%*%t(data[[i]][,-j])
-      var.j<-S11-t(S12)%*%S22i%*%as.matrix(S12)
-      data[[i]][,j]<-rtruncnorm(length(mu.j),a=tpoints[[i]][[1]][,j],b=tpoints[[i]][[2]][,j], mean=mu.j, sd=sqrt(var.j))
+sample.data<-function (data, K, tpoints)
+{
+  B <- length(data)
+  p <- ncol(data[[1]])
+  for (i in 1:B) {
+    for (j in 1:p) {
+      S <- solve(K[[i]])
+      S22i <- solve(S[-j, -j])
+      S12 <- S[j, -j]
+      S11 <- S[j, j]
+      mu.j <- t(S12) %*% S22i %*% t(data[[i]][, -j])
+      var.j <- S11 - t(S12) %*% S22i %*% as.matrix(S12)
+      data[[i]][, j] <- rtruncnorm(length(mu.j), a = tpoints[[i]][[1]][,j], b = tpoints[[i]][[2]][, j], mean = mu.j,sd = sqrt(var.j))
     }
   }
   return(data)
@@ -93,51 +92,6 @@ bpr <- function(y, X, offset = 0, theta, theta_0 = c(0, 0, 0), N_sim = 1) {
 }
 
 
-blr<-function(y,X,offset = 0, theta, theta_0=0, N_sim=1){
-  # dim of theta
-  D<- ncol(X)
-
-  # number of observations
-  n<-length(y)
-  N1<-sum(y)
-  N0<-n-N1
-
-  # Conjugate prior on the coefficients \theta ~ N(theta_0, Q_0)
-  Q_0 <- diag(10, D)
-
-  # Initialize parameters
-  z <- rep(NA, n)
-
-  # Matrix storing samples of the \theta parameter
-  theta_chain <- matrix(0, nrow = N_sim, ncol = D)
-
-  # ---------------------------------
-  # Gibbs sampling algorithm
-  # ---------------------------------
-
-  # Compute posterior variance of theta
-  prec_0 <- solve(Q_0)
-  V <- solve(prec_0 + crossprod(X, X))
-
-  for (t in 1:N_sim) {
-    # Update Mean of z
-    mu_z <- X %*% theta + offset
-    # Draw latent variable z from its full conditional: z | \theta, y, X
-    if(sum(1-y)>0)
-      z[y == 0] <- rtruncnorm(N0, mean = mu_z[y == 0], sd = 1, a = -Inf, b = 0)
-    if(sum(y)>0)
-      z[y == 1] <- rtruncnorm(N1, mean = mu_z[y == 1], sd = 1, a = 0, b = Inf)
-
-    # Compute posterior mean of theta
-    M <- V %*% (prec_0 %*% theta_0 + crossprod(X,z-offset))
-    # Draw variable \theta from its full conditional: \theta | z, X
-    theta <- c(rmvnorm(1, M, V))
-
-    # Store the \theta draws
-    theta_chain[t, ] <- theta
-  }
-  return(theta_chain)
-}
 
 
 Gmcmc<-function(G, X=NULL, iter=1000,alpha=NULL,theta=NULL,loc=NULL, burnin=0)
