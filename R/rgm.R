@@ -163,7 +163,7 @@ rgm<-function(data,X=NULL,iter=1000,burnin=0,initial.graphs=NULL, D=2, initial.l
       g.start<-g.start+t(g.start)
 
       # update K
-      res.bd<-BDgraph::bdgraph(data[[j]], iter = bd.iter, jump=bd.jump, g.start=g.start,  g.prior=g.prior, save=FALSE, burnin=0,verbose = FALSE)
+      res.bd<-suppressWarnings(BDgraph::bdgraph(data[[j]], iter = bd.iter, jump=bd.jump, g.start=g.start,  g.prior=g.prior, save=FALSE, burnin=0,verbose = FALSE))
 
       g<-res.bd$last_graph
       K[[j]]<-res.bd$last_K

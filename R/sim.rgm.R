@@ -88,9 +88,70 @@ sim.rgm <- function(n=346,
     A <- matrix(0, nrow = p, ncol = p)
     A[lower.tri(A)] <- G.true[,j]
     A <- A + t(A)
-    data[[j]] <- suppressWarnings(BDgraph::bdgraph.sim( p = p, n = n, graph = A)$data)
+    data[[j]] <- custom_graph_sim( p = p, n = n, graph = A)$data
   }
 
   list(data = data, X=X, loc = cloc.true, alpha = alpha.true, theta = beta.true,G=G.true)
 
 }
+
+
+
+custom_graph_sim <- function(p, n, graph) {
+  # Validate inputs
+  if (p < 2) stop("'p' must be greater than 1")
+  if (n < 1) stop("'n' must be greater than 0")
+  if (!is.matrix(graph)) stop("'graph' must be a matrix")
+  if (!isSymmetric(graph)) stop("'graph' must be symmetric")
+  if (!all(graph %in% c(0, 1))) stop("Elements of matrix 'graph' must be 0 or 1")
+
+  # Set default values for other parameters
+  mean = 0
+  sigma = NULL
+
+  # Use the provided 'graph' matrix
+  G <- graph
+
+  # Data Simulation for Gaussian data
+  if (is.null(sigma)) {
+    # Adjust for zero variance if necessary
+    if (any(apply(G, 1, stats::var) == 0)) {
+      G <- G + matrix(runif(length(G)) * 1e-10, nrow = nrow(G), ncol = ncol(G))
+    }
+    # Compute sigma and ensure it's symmetric
+    cor_G = stats::cor(G) + diag(1e-10, p)
+    sigma = (cor_G + t(cor_G)) / 2
+  }
+  d <- rmvnorm(n = n, mean = rep(mean, p), sigma = sigma)
+
+  # Return the simulation output
+  list(G = G, graph = graph, data = d, sigma = sigma)
+}
+
+
+  rmvnorm <- function(n, mean, sigma) {
+    if (!isSymmetric(sigma, tol = sqrt(.Machine$double.eps))) {
+      stop("'sigma' must be a symmetric matrix")
+    }
+    sigma = as.matrix(sigma)
+    p = nrow(sigma)
+    if (length(mean) == 1) {
+      mean = rep(mean, p)
+    }
+    if (length(mean) != p) {
+      stop("'mean' and 'sigma' have non-conforming size")
+    }
+    chol_sigma = chol(sigma)
+
+    z = matrix(rnorm(n * p), nrow = p, ncol = n)
+
+    # The resulting matrix from the multiplication is p x n
+    # We need to transpose it to get n x p
+    data = t(t(chol_sigma) %*% z) + matrix(mean, nrow = n, ncol = p, byrow = TRUE)
+
+    return(data)
+  }
+
+
+
+
